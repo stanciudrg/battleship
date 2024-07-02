@@ -1,18 +1,18 @@
 {
-  "name": "repository-template",
+  "name": "battleship",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "homepage": "https://github.com/stanciudrg/repository-template",
+  "homepage": "https://github.com/stanciudrg/battleship",
   "repository": {
     "type": "git",
-    "url": "https://github.com/stanciudrg/repository-template"
+    "url": "https://github.com/stanciudrg/battleship"
   },
   "bugs": {
-    "url": "https://github.com/stanciudrg/repository-template/issues"
+    "url": "https://github.com/stanciudrg/battleship/issues"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "start": "webpack serve --open",
     "publish": "git subtree push --prefix dist origin gh-pages"
   },
