@@ -9,38 +9,40 @@ test("Ship class correctly sets the private length property when the correct len
   expect(ship.length).toBe(2);
 });
 
-test("Ship class throws if no length is provided", () => {
-  expect(() => {
-    Ship();
-  }).toThrow();
-  expect(() => {
-    Ship(undefined);
-  }).toThrow();
-  expect(() => {
-    Ship(null);
-  }).toThrow();
-});
+describe("Ship class 'length' parameter type and range tests", () => {
+  test("Ship class throws if no length is provided", () => {
+    expect(() => {
+      Ship();
+    }).toThrow();
+    expect(() => {
+      Ship(undefined);
+    }).toThrow();
+    expect(() => {
+      Ship(null);
+    }).toThrow();
+  });
 
-test("Ship class throws if length is not a number", () => {
-  expect(() => {
-    Ship({});
-  }).toThrow();
-  expect(() => {
-    Ship("");
-  }).toThrow();
-  expect(() => {
-    Ship([]);
-  }).toThrow();
-});
+  test("Ship class throws if length is not a number", () => {
+    expect(() => {
+      Ship({});
+    }).toThrow();
+    expect(() => {
+      Ship("");
+    }).toThrow();
+    expect(() => {
+      Ship([]);
+    }).toThrow();
+  });
 
-test("Ship class throws if length is not a positive number between 1 and 4", () => {
-  expect(() => {
-    Ship(-2);
-  }).toThrow();
-  expect(() => {
-    Ship(0);
-  }).toThrow();
-  expect(() => {
-    Ship(5);
-  }).toThrow();
+  test("Ship class throws if length is not a positive number between 1 and 4", () => {
+    expect(() => {
+      Ship(-2);
+    }).toThrow();
+    expect(() => {
+      Ship(0);
+    }).toThrow();
+    expect(() => {
+      Ship(5);
+    }).toThrow();
+  });
 });
