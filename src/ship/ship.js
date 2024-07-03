@@ -1,5 +1,6 @@
 export default class Ship {
   #length;
+  #hits = 0;
 
   constructor(length) {
     if (!length) throw new TypeError("Ship length must be provided");
@@ -19,5 +20,13 @@ export default class Ship {
 
   get length() {
     return this.#length;
+  }
+
+  hit() {
+    this.#hits += 1;
+  }
+
+  get hits() {
+    return this.#hits;
   }
 }

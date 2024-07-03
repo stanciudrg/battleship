@@ -46,3 +46,11 @@ describe("Ship class 'length' parameter type and range tests", () => {
     }).toThrow();
   });
 });
+
+test("The hit() method increments Ship's hits counter by exactly one digit", () => {
+  const ship = new Ship(2);
+  ship.hit();
+  expect(ship.hits).toBe(1);
+  ship.hit();
+  expect(ship.hits).toBe(2);
+});
