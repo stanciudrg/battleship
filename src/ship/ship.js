@@ -10,7 +10,7 @@ export default class Ship {
     }
 
     if (length < 1 || length > 4) {
-      throw new TypeError(
+      throw new RangeError(
         "Ship length must not be lower than 1 or higher than 4",
       );
     }
@@ -22,6 +22,10 @@ export default class Ship {
     return this.#length;
   }
 
+  get hits() {
+    return this.#hits;
+  }
+
   hit() {
     if (this.isSunk()) {
       throw new RangeError(
@@ -29,10 +33,6 @@ export default class Ship {
       );
     }
     this.#hits += 1;
-  }
-
-  get hits() {
-    return this.#hits;
   }
 
   isSunk() {
