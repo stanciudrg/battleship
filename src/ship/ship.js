@@ -8,6 +8,12 @@ export default class Ship {
       throw new TypeError("Ship length must be a number");
     }
 
+    if (length < 1 || length > 4) {
+      throw new TypeError(
+        "Ship length must not be lower than 1 or higher than 4",
+      );
+    }
+
     this.#length = length;
   }
 

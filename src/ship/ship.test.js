@@ -32,3 +32,15 @@ test("Ship class throws if length is not a number", () => {
     Ship([]);
   }).toThrow();
 });
+
+test("Ship class throws if length is not a positive number between 1 and 4", () => {
+  expect(() => {
+    Ship(-2);
+  }).toThrow();
+  expect(() => {
+    Ship(0);
+  }).toThrow();
+  expect(() => {
+    Ship(5);
+  }).toThrow();
+});
