@@ -8,3 +8,15 @@ test("Ship class correctly sets the private length property when the correct len
   const ship = new Ship(2);
   expect(ship.length).toBe(2);
 });
+
+test("Ship class throws if no length is provided", () => {
+  expect(() => {
+    Ship();
+  }).toThrow();
+  expect(() => {
+    Ship(undefined);
+  }).toThrow();
+  expect(() => {
+    Ship(null);
+  }).toThrow();
+});
