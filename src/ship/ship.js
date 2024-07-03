@@ -29,4 +29,8 @@ export default class Ship {
   get hits() {
     return this.#hits;
   }
+
+  isSunk() {
+    return this.#hits === this.#length;
+  }
 }
