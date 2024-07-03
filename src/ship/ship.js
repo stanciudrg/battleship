@@ -3,6 +3,11 @@ export default class Ship {
 
   constructor(length) {
     if (!length) throw new TypeError("Ship length must be provided");
+
+    if (typeof length !== "number") {
+      throw new TypeError("Ship length must be a number");
+    }
+
     this.#length = length;
   }
 

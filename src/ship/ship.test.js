@@ -20,3 +20,15 @@ test("Ship class throws if no length is provided", () => {
     Ship(null);
   }).toThrow();
 });
+
+test("Ship class throws if length is not a number", () => {
+  expect(() => {
+    Ship({});
+  }).toThrow();
+  expect(() => {
+    Ship("");
+  }).toThrow();
+  expect(() => {
+    Ship([]);
+  }).toThrow();
+});
