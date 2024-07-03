@@ -23,6 +23,11 @@ export default class Ship {
   }
 
   hit() {
+    if (this.isSunk()) {
+      throw new RangeError(
+        "Ship has already been sunk (no. of hits is equal to ship's length)",
+      );
+    }
     this.#hits += 1;
   }
 

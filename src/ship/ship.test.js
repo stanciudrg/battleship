@@ -55,6 +55,15 @@ test("The hit() method increments Ship's hits counter by exactly one digit", () 
   expect(ship.hits).toBe(2);
 });
 
+test("The hit() method throws if trying to hit a ship that is sunk", () => {
+  const ship = new Ship(2);
+  ship.hit();
+  ship.hit();
+  expect(() => {
+    ship.hit();
+  }).toThrow();
+});
+
 test("The isSunk() method correctly calculates whether a ship has been sunk", () => {
   const ship = new Ship(2);
   expect(ship.isSunk()).toBe(false);
