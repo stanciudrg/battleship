@@ -18,6 +18,10 @@ export default class GameBoard {
   }
 
   placeShip(ship, options) {
+    if (this.#isOutOfBounds(options)) {
+      throw new RangeError("Ship coordinates are out of bounds");
+    }
+
     const { x, y, axis, length } = options;
 
     for (let i = 0; i < length; i++) {
@@ -27,5 +31,11 @@ export default class GameBoard {
         this.#board[x + i][y].ship = ship;
       }
     }
+  }
+
+  #isOutOfBounds(options) {
+    const { x, y, axis, length } = options;
+    if (axis === "x" && x + length > 10) return true;
+    if (axis === "y" && y + length > 10) return true;
   }
 }
