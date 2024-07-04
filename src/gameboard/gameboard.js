@@ -18,9 +18,14 @@ export default class GameBoard {
   }
 
   placeShip(ship, options) {
-    const { x, y, length } = options;
+    const { x, y, axis, length } = options;
+
     for (let i = 0; i < length; i++) {
-      this.#board[x][y + i].ship = ship;
+      if (axis === "x") {
+        this.#board[x][y + i].ship = ship;
+      } else if (axis === "y") {
+        this.#board[x + i][y].ship = ship;
+      }
     }
   }
 }
