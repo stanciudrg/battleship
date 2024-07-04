@@ -16,4 +16,11 @@ export default class GameBoard {
       this.#board.push(x);
     }
   }
+
+  placeShip(ship, options) {
+    const { x, y, length } = options;
+    for (let i = 0; i < length; i++) {
+      this.#board[x][y + i].ship = ship;
+    }
+  }
 }
