@@ -107,3 +107,16 @@ test("GameBoard correctly sends a hit at the specified coordinate", () => {
   gameBoard.receiveAttack({ x: 4, y: 6 });
   expect(gameBoard.board[4][6].isHit).toBe(true);
 });
+
+test("GameBoard throws if trying to hit a coordinate that is out of bounds", () => {
+  const gameBoard = new GameBoard();
+  gameBoard.createBoard();
+
+  expect(() => {
+    gameBoard.receiveAttack({ x: 11, y: 12 });
+  }).toThrow();
+
+  expect(() => {
+    gameBoard.receiveAttack({ x: -2, y: -5 });
+  }).toThrow();
+});

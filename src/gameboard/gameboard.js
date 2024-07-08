@@ -39,6 +39,13 @@ export default class GameBoard {
 
   receiveAttack(coordinates) {
     const { x, y } = coordinates;
+
+    if (x > 10 || x < 0 || y > 10 || y < 0) {
+      throw new RangeError(
+        "Attempting to hit a coordinate that is out of bounds",
+      );
+    }
+
     this.#board[x][y].isHit = true;
   }
 
