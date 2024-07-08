@@ -53,6 +53,7 @@ export default class GameBoard {
     }
 
     this.#board[x][y].isHit = true;
+    if (this.#board[x][y].ship) this.#board[x][y].ship.hit();
   }
 
   #isOutOfBounds(options) {

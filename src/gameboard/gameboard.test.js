@@ -132,3 +132,20 @@ test("GameBoard returns a warning if trying to hit a coordinate multiple times",
 
   expect(warnSpy).toHaveBeenCalled();
 });
+
+test("GameBoard sends the hit to the correct ship when it has been hit", () => {
+  const gameBoard = new GameBoard();
+  gameBoard.createBoard();
+
+  const ship = new Ship(4);
+  gameBoard.placeShip(ship, { x: 0, y: 0, axis: "x", length: 4 });
+
+  gameBoard.receiveAttack({ x: 0, y: 0 });
+  expect(ship.hits).toBe(1);
+
+  gameBoard.receiveAttack({ x: 0, y: 1 });
+  gameBoard.receiveAttack({ x: 0, y: 2 });
+  gameBoard.receiveAttack({ x: 0, y: 3 });
+
+  expect(ship.isSunk()).toBe(true);
+});
