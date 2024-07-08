@@ -46,6 +46,12 @@ export default class GameBoard {
       );
     }
 
+    if (this.#board[x][y].isHit) {
+      return console.warn(
+        "Attempting to hit a coordinate multiple times. The coordinate has already been hit. No actions were taken",
+      );
+    }
+
     this.#board[x][y].isHit = true;
   }
 

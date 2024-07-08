@@ -120,3 +120,15 @@ test("GameBoard throws if trying to hit a coordinate that is out of bounds", () 
     gameBoard.receiveAttack({ x: -2, y: -5 });
   }).toThrow();
 });
+
+test("GameBoard returns a warning if trying to hit a coordinate multiple times", () => {
+  const warnSpy = jest.spyOn(global.console, "warn");
+
+  const gameBoard = new GameBoard();
+  gameBoard.createBoard();
+
+  gameBoard.receiveAttack({ x: 2, y: 2 });
+  gameBoard.receiveAttack({ x: 2, y: 2 });
+
+  expect(warnSpy).toHaveBeenCalled();
+});
