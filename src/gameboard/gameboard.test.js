@@ -149,3 +149,28 @@ test("GameBoard sends the hit to the correct ship when it has been hit", () => {
 
   expect(ship.isSunk()).toBe(true);
 });
+
+test("GameBoard correctly determines if all ships have been sunk", () => {
+  const gameBoard = new GameBoard();
+  gameBoard.createBoard();
+
+  const ship = new Ship(4);
+  gameBoard.placeShip(ship, { x: 0, y: 0, axis: "x", length: 4 });
+
+  const ship2 = new Ship(4);
+  gameBoard.placeShip(ship2, { x: 6, y: 0, axis: "x", length: 4 });
+
+  gameBoard.receiveAttack({ x: 0, y: 0 });
+  gameBoard.receiveAttack({ x: 0, y: 1 });
+  gameBoard.receiveAttack({ x: 0, y: 2 });
+  gameBoard.receiveAttack({ x: 0, y: 3 });
+
+  expect(gameBoard.isGameOver()).toBe(false);
+
+  gameBoard.receiveAttack({ x: 6, y: 0 });
+  gameBoard.receiveAttack({ x: 6, y: 1 });
+  gameBoard.receiveAttack({ x: 6, y: 2 });
+  gameBoard.receiveAttack({ x: 6, y: 3 });
+
+  expect(gameBoard.isGameOver()).toBe(true);
+});

@@ -1,5 +1,6 @@
 export default class GameBoard {
   #board = [];
+  #ships = [];
 
   get board() {
     return this.#board;
@@ -28,6 +29,8 @@ export default class GameBoard {
 
     const { x, y, axis, length } = options;
 
+    this.#ships.push(ship);
+
     for (let i = 0; i < length; i++) {
       if (axis === "x") {
         this.#board[x][y + i].ship = ship;
@@ -54,6 +57,15 @@ export default class GameBoard {
 
     this.#board[x][y].isHit = true;
     if (this.#board[x][y].ship) this.#board[x][y].ship.hit();
+  }
+
+  isGameOver() {
+    const livingShip = this.#ships.find((ship) => {
+      if (ship.isSunk() === false) return ship;
+    });
+
+    if (livingShip) return false;
+    return true;
   }
 
   #isOutOfBounds(options) {
