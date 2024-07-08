@@ -69,3 +69,30 @@ test("GameBoard correctly detects if coordinates are out of bounds", () => {
     gameBoard.placeShip(ship, { x: 0, y: 8, axis: "y", length: 4 });
   }).toThrow();
 });
+
+test("GameBoard correctly detects if coordinates overlap with existing ships", () => {
+  const gameBoard = new GameBoard();
+  gameBoard.createBoard();
+
+  const ship = new Ship(4);
+  gameBoard.placeShip(ship, { x: 0, y: 0, axis: "x", length: 4 });
+
+  expect(() => {
+    gameBoard.placeShip(ship, { x: 0, y: 3, axis: "x", length: 4 });
+  }).toThrow();
+
+  expect(() => {
+    gameBoard.placeShip(ship, { x: 0, y: 5, axis: "x", length: 4 });
+  }).not.toThrow();
+
+  const ship2 = new Ship(4);
+  gameBoard.placeShip(ship2, { x: 1, y: 0, axis: "y", length: 4 });
+
+  expect(() => {
+    gameBoard.placeShip(ship2, { x: 3, y: 0, axis: "y", length: 4 });
+  }).toThrow();
+
+  expect(() => {
+    gameBoard.placeShip(ship2, { x: 6, y: 0, axis: "y", length: 4 });
+  }).not.toThrow();
+});

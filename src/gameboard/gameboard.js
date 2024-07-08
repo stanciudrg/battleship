@@ -22,6 +22,10 @@ export default class GameBoard {
       throw new RangeError("Ship coordinates are out of bounds");
     }
 
+    if (this.#overlapsExistingShips(options)) {
+      throw new RangeError("Ship coordinates overlap existing ships");
+    }
+
     const { x, y, axis, length } = options;
 
     for (let i = 0; i < length; i++) {
@@ -37,5 +41,21 @@ export default class GameBoard {
     const { x, y, axis, length } = options;
     if (axis === "x" && x + length > 10) return true;
     if (axis === "y" && y + length > 10) return true;
+  }
+
+  #overlapsExistingShips(options) {
+    const { x, y, axis, length } = options;
+
+    if (axis === "x") {
+      for (let i = 0; i < length; i++) {
+        if (this.#board[x][y + i].ship) return true;
+      }
+    } else if (axis === "y") {
+      for (let i = 0; i < length; i++) {
+        if (this.#board[x + i][y].ship) return true;
+      }
+    }
+
+    return false;
   }
 }
