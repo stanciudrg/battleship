@@ -96,3 +96,14 @@ test("GameBoard correctly detects if coordinates overlap with existing ships", (
     gameBoard.placeShip(ship2, { x: 6, y: 0, axis: "y", length: 4 });
   }).not.toThrow();
 });
+
+test("GameBoard correctly sends a hit at the specified coordinate", () => {
+  const gameBoard = new GameBoard();
+  gameBoard.createBoard();
+
+  gameBoard.receiveAttack({ x: 0, y: 0 });
+  expect(gameBoard.board[0][0].isHit).toBe(true);
+
+  gameBoard.receiveAttack({ x: 4, y: 6 });
+  expect(gameBoard.board[4][6].isHit).toBe(true);
+});

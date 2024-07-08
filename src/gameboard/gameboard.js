@@ -37,6 +37,11 @@ export default class GameBoard {
     }
   }
 
+  receiveAttack(coordinates) {
+    const { x, y } = coordinates;
+    this.#board[x][y].isHit = true;
+  }
+
   #isOutOfBounds(options) {
     const { x, y, axis, length } = options;
     if (axis === "x" && x + length > 10) return true;
