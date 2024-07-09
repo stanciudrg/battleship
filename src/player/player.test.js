@@ -6,3 +6,15 @@ test("Player class is initialized if provided the correct gameBoard", () => {
   gameBoard.createBoard();
   expect(new Player(gameBoard)).not.toBeUndefined();
 });
+
+test("Player class throws if it is initialized without a gameBoard", () => {
+  expect(() => {
+    new Player();
+  }).toThrow();
+  expect(() => {
+    new Player(undefined);
+  }).toThrow();
+  expect(() => {
+    new Player(null);
+  }).toThrow();
+});
