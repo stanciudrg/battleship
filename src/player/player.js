@@ -1,5 +1,6 @@
 export default class Player {
   #gameBoard;
+  #score = 0;
 
   constructor(gameBoard) {
     if (!gameBoard) {
@@ -13,5 +14,17 @@ export default class Player {
     }
 
     this.#gameBoard = gameBoard;
+  }
+
+  get gameBoard() {
+    return this.#gameBoard;
+  }
+
+  get score() {
+    return this.#score;
+  }
+
+  increaseScore() {
+    this.#score += 1;
   }
 }

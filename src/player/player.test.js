@@ -30,3 +30,13 @@ test("Player class throws if gameBoard is not an object", () => {
     new Player(function () {});
   }).toThrow();
 });
+
+test("Player class correctly increments the score", () => {
+  const gameBoard = new GameBoard();
+  gameBoard.createBoard();
+  const player = new Player(gameBoard);
+
+  expect(player.score).toBe(0);
+  player.increaseScore();
+  expect(player.score).toBe(1);
+});
