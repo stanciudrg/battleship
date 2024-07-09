@@ -40,3 +40,15 @@ test("Player class correctly increments the score", () => {
   player.increaseScore();
   expect(player.score).toBe(1);
 });
+
+test("Player class correctly resets the score", () => {
+  const gameBoard = new GameBoard();
+  gameBoard.createBoard();
+  const player = new Player(gameBoard);
+
+  player.increaseScore();
+  expect(player.score).toBe(1);
+
+  player.resetScore();
+  expect(player.score).toBe(0);
+});
