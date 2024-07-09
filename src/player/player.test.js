@@ -18,3 +18,15 @@ test("Player class throws if it is initialized without a gameBoard", () => {
     new Player(null);
   }).toThrow();
 });
+
+test("Player class throws if gameBoard is not an object", () => {
+  expect(() => {
+    new Player("");
+  }).toThrow();
+  expect(() => {
+    new Player([]);
+  }).toThrow();
+  expect(() => {
+    new Player(function () {});
+  }).toThrow();
+});

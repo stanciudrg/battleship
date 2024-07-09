@@ -8,6 +8,10 @@ export default class Player {
       );
     }
 
+    if (typeof gameBoard !== "object" || Array.isArray(gameBoard)) {
+      throw new TypeError("gameBoard must be a valid object");
+    }
+
     this.#gameBoard = gameBoard;
   }
 }
