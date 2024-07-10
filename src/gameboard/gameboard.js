@@ -70,8 +70,8 @@ export default class GameBoard {
 
   #isOutOfBounds(options) {
     const { x, y, axis, length } = options;
-    if (axis === "x" && x + length > 10) return true;
-    if (axis === "y" && y + length > 10) return true;
+    if (axis === "x" && y + length > 9) return true;
+    if (axis === "y" && x + length > 9) return true;
   }
 
   #overlapsExistingShips(options) {
