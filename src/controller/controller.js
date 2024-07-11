@@ -3,6 +3,8 @@ import GameBoard from "../gameboard/gameboard";
 import Player from "../player/player";
 
 export default class Controller {
+  #players = {};
+
   createGameBoard() {
     const board = new GameBoard();
     board.createBoard();
@@ -12,5 +14,14 @@ export default class Controller {
   createShip(length) {
     const ship = new Ship(length);
     return ship;
+  }
+
+  createPlayers() {
+    this.#players[1] = new Player(this.createGameBoard());
+    this.#players[2] = new Player(this.createGameBoard());
+  }
+
+  get players() {
+    return this.#players;
   }
 }
