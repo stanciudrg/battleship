@@ -8,4 +8,9 @@ export default class Controller {
     board.createBoard();
     return board;
   }
+
+  createShip(length) {
+    const ship = new Ship(length);
+    return ship;
+  }
 }
