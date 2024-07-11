@@ -9,9 +9,9 @@ export default class Ship {
       throw new TypeError("Ship length must be a number");
     }
 
-    if (length < 1 || length > 4) {
+    if (length < 2 || length > 5) {
       throw new RangeError(
-        "Ship length must not be lower than 1 or higher than 4",
+        "Ship length must not be lower than 2 or higher than 5",
       );
     }
 
