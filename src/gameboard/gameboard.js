@@ -6,6 +6,10 @@ export default class GameBoard {
     return this.#board;
   }
 
+  get ships() {
+    return this.#ships;
+  }
+
   createBoard() {
     for (let i = 0; i < 10; i++) {
       const x = [];
