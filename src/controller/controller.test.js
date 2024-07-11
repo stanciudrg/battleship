@@ -36,3 +36,23 @@ test("The controller sends the attack to the passed player at the passed coordin
   expect(controller.players[1].gameBoard.board[0][0].isHit).toBe(true);
   expect(controller.players[1].gameBoard.board[0][0].ship.hits).toBe(1);
 });
+
+test("The controller correctly detects if the game is over", () => {
+  const controller = new Controller();
+  controller.createPlayers();
+  controller.placeShip(1, { x: 0, y: 0, axis: "x", length: 4 });
+  controller.placeShip(2, { x: 0, y: 0, axis: "x", length: 4 });
+
+  controller.sendAttack(1, { x: 0, y: 0 });
+  controller.sendAttack(1, { x: 0, y: 1 });
+  controller.sendAttack(1, { x: 0, y: 2 });
+
+  controller.sendAttack(2, { x: 0, y: 2 });
+  controller.sendAttack(2, { x: 0, y: 3 });
+
+  expect(controller.isGameOver()).toBe(false);
+
+  controller.sendAttack(1, { x: 0, y: 3 });
+
+  expect(controller.isGameOver()).toBe(true);
+});

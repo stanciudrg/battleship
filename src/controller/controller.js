@@ -30,4 +30,19 @@ export default class Controller {
     const ship = this.createShip(length);
     this.#players[player].gameBoard.placeShip(ship, options);
   }
+
+  sendAttack(player, coordinates) {
+    this.#players[player].gameBoard.receiveAttack(coordinates);
+  }
+
+  isGameOver() {
+    if (
+      this.#players[1].gameBoard.isGameOver() ||
+      this.#players[2].gameBoard.isGameOver()
+    ) {
+      return true;
+    }
+
+    return false;
+  }
 }
