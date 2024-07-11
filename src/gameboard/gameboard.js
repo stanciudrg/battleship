@@ -19,6 +19,12 @@ export default class GameBoard {
   }
 
   placeShip(ship, options) {
+    if (this.#ships.length >= 5) {
+      throw new RangeError(
+        "Attempting to place more than 5 ships on the gameBoard. GameBoard must have exactly 5 ships",
+      );
+    }
+
     if (this.#isOutOfBounds(options)) {
       throw new RangeError("Ship coordinates are out of bounds");
     }

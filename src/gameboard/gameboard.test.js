@@ -47,6 +47,32 @@ test("GameBoard class can place ships on both axes", () => {
   expect(gameBoard.board[3][0].ship).toEqual(ship);
 });
 
+test("GameBoard class throws if trying to place more than 5 ships", () => {
+  const gameBoard = new GameBoard();
+  gameBoard.createBoard();
+
+  const ship = new Ship(4);
+  gameBoard.placeShip(ship, { x: 0, y: 0, axis: "x", length: 4 });
+
+  const ship2 = new Ship(4);
+  gameBoard.placeShip(ship2, { x: 1, y: 0, axis: "x", length: 4 });
+
+  const ship3 = new Ship(4);
+  gameBoard.placeShip(ship3, { x: 2, y: 0, axis: "x", length: 4 });
+
+  const ship4 = new Ship(4);
+  gameBoard.placeShip(ship4, { x: 3, y: 0, axis: "x", length: 4 });
+
+  const ship5 = new Ship(4);
+  gameBoard.placeShip(ship5, { x: 4, y: 0, axis: "x", length: 4 });
+
+  const ship6 = new Ship(4);
+
+  expect(() => {
+    gameBoard.placeShip(ship6, { x: 5, y: 0, axis: "x", length: 4 });
+  }).toThrow();
+});
+
 test("GameBoard correctly detects if coordinates are out of bounds", () => {
   const gameBoard = new GameBoard();
   gameBoard.createBoard();
