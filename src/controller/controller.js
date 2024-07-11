@@ -24,4 +24,10 @@ export default class Controller {
   get players() {
     return this.#players;
   }
+
+  placeShip(player, options) {
+    const { x, y, axis, length } = options;
+    const ship = this.createShip(length);
+    this.#players[player].gameBoard.placeShip(ship, options);
+  }
 }

@@ -19,3 +19,10 @@ test("The controller creates the necessary players for the game", () => {
   expect(controller.players[1]).toBeInstanceOf(Player);
   expect(controller.players[2]).toBeInstanceOf(Player);
 });
+
+test("The controller places the ship for the passed player at the passed coordinate", () => {
+  const controller = new Controller();
+  controller.createPlayers();
+  controller.placeShip(1, { x: 0, y: 0, axis: "x", length: 4 });
+  expect(controller.players[1].gameBoard.board[0][0].ship).toBeInstanceOf(Ship);
+});
