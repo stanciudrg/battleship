@@ -45,4 +45,10 @@ export default class Controller {
 
     return false;
   }
+
+  getWinner() {
+    if (this.#players[1].gameBoard.isGameOver()) return this.#players[2];
+    if (this.#players[2].gameBoard.isGameOver()) return this.#players[1];
+    return null;
+  }
 }

@@ -56,3 +56,23 @@ test("The controller correctly detects if the game is over", () => {
 
   expect(controller.isGameOver()).toBe(true);
 });
+
+test("The controller correctly determines the winner", () => {
+  const controller = new Controller();
+  controller.createPlayers();
+  controller.placeShip(1, { x: 0, y: 0, axis: "x", length: 4 });
+  controller.placeShip(2, { x: 0, y: 0, axis: "x", length: 4 });
+
+  controller.sendAttack(1, { x: 0, y: 0 });
+  controller.sendAttack(1, { x: 0, y: 1 });
+  controller.sendAttack(1, { x: 0, y: 2 });
+
+  controller.sendAttack(2, { x: 0, y: 2 });
+  controller.sendAttack(2, { x: 0, y: 3 });
+
+  expect(controller.getWinner()).toBe(null);
+
+  controller.sendAttack(1, { x: 0, y: 3 });
+
+  expect(controller.getWinner()).toEqual(controller.players[2]);
+});
