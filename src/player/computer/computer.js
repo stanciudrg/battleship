@@ -15,7 +15,7 @@ export default class Computer extends Player {
       new Ship(5),
     ];
 
-    const generateCoordinates = (length) => {
+    const generateCoordinates = () => {
       return {
         x: Math.floor(Math.random() * 10),
         y: Math.floor(Math.random() * 10),
@@ -37,5 +37,12 @@ export default class Computer extends Player {
     ships.forEach((ship) => {
       randomlyPlaceShip(ship);
     });
+  }
+
+  static generateAttackCoordinates(gameBoard) {
+    return {
+      x: Math.floor(Math.random() * 10),
+      y: Math.floor(Math.random() * 10),
+    };
   }
 }
