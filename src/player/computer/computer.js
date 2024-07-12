@@ -40,9 +40,35 @@ export default class Computer extends Player {
   }
 
   static generateAttackCoordinates(gameBoard) {
-    return {
-      x: Math.floor(Math.random() * 10),
-      y: Math.floor(Math.random() * 10),
+    const generateRandomX = () => {
+      const availableXs = [];
+
+      gameBoard.board.forEach((x, index) => {
+        if (
+          x.find((y) => {
+            if (!y.isHit) return y;
+          })
+        )
+          availableXs.push(index);
+      });
+
+      return availableXs[Math.floor(Math.random() * availableXs.length)];
     };
+
+    const randomX = generateRandomX();
+
+    const generateRandomY = () => {
+      const availableYs = [];
+
+      gameBoard.board[randomX].forEach((y, index) => {
+        if (!y.isHit) availableYs.push(index);
+      });
+
+      return availableYs[Math.floor(Math.random() * availableYs.length)];
+    };
+
+    const randomY = generateRandomY();
+
+    return { x: randomX, y: randomY };
   }
 }
