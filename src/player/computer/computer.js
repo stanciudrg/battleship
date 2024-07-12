@@ -52,6 +52,12 @@ export default class Computer extends Player {
           availableXs.push(index);
       });
 
+      if (availableXs.length === 0) {
+        throw new RangeError(
+          "Attempting to generate an attack for a full gameBoard. gameBoard must have at least one free spot in order for a valid coordinate to be generated.",
+        );
+      }
+
       return availableXs[Math.floor(Math.random() * availableXs.length)];
     };
 

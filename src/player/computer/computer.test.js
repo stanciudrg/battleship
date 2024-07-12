@@ -46,3 +46,17 @@ test("Computer class generates multiple valid random attacks for the same gameBo
 
   expect(noOfHits).toBe(99);
 });
+
+test("Computer class throws if trying to generate an attack for a a full gameBoard", () => {
+  const enemyGameBoard = new GameBoard();
+  enemyGameBoard.createBoard();
+
+  for (let i = 0; i < 100; i++) {
+    const attack = Computer.generateAttackCoordinates(enemyGameBoard);
+    enemyGameBoard.receiveAttack(attack);
+  }
+
+  expect(() => {
+    Computer.generateAttackCoordinates(enemyGameBoard);
+  }).toThrow();
+});
