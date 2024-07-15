@@ -234,3 +234,25 @@ test("The controller correctly resets the 'ships' array of the passed player's G
   expect(controller.players[1].gameBoard.ships).toStrictEqual([]);
   expect(controller.players[2].gameBoard.ships).toStrictEqual([]);
 });
+
+test("The controller correctly restarts a game", () => {
+  const controller = new Controller();
+
+  controller.createPlayerAndComputer();
+  controller.placeShip(1, { x: 0, y: 0, axis: "x", length: 4 });
+  controller.placeShip(2, { x: 0, y: 0, axis: "x", length: 4 });
+
+  const oldPlayerGameBoard = controller.players[1].gameBoard.board;
+  const oldPlayerTwoGameBoard = controller.players[2].gameBoard.board;
+
+  controller.restartGame();
+
+  const newPlayerGameBoard = controller.players[1].gameBoard.board;
+  const newPlayerTwoGameBoard = controller.players[2].gameBoard.board;
+
+  expect(oldPlayerGameBoard).not.toEqual(newPlayerGameBoard);
+  expect(oldPlayerTwoGameBoard).not.toEqual(newPlayerTwoGameBoard);
+
+  expect(controller.players[1].gameBoard.ships).toStrictEqual([]);
+  expect(controller.players[2].gameBoard.ships).toStrictEqual([]);
+});

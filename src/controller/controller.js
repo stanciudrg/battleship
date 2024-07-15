@@ -102,4 +102,11 @@ export default class Controller {
   deleteShips(player) {
     this.players[player].gameBoard.deleteShips();
   }
+
+  restartGame() {
+    this.resetBoard(1);
+    this.resetBoard(2);
+    this.deleteShips(1);
+    this.deleteShips(2);
+  }
 }
