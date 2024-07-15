@@ -16,6 +16,7 @@ test("The controller creates a valid ship", () => {
 test("The controller creates the necessary players for the game", () => {
   const controller = new Controller();
   controller.createPlayers();
+
   expect(controller.players[1]).toBeInstanceOf(Player);
   expect(controller.players[2]).toBeInstanceOf(Player);
 });
@@ -24,6 +25,7 @@ test("The controller places the ship for the passed player at the passed coordin
   const controller = new Controller();
   controller.createPlayers();
   controller.placeShip(1, { x: 0, y: 0, axis: "x", length: 4 });
+
   expect(controller.players[1].gameBoard.board[0][0].ship).toBeInstanceOf(Ship);
 });
 
@@ -45,6 +47,19 @@ test("The controller correctly manipulates the Computer instance into placing it
   controller.players[2].gameBoard.ships.forEach((ship) => {
     expect(ship).toBeInstanceOf(Ship);
   });
+});
+
+test("The controller correctly manipulates the Computer instance into generating a random valid attack", () => {
+  const controller = new Controller();
+  controller.createPlayers();
+
+  const playerBoard = controller.players[1].gameBoard.board;
+
+  const computerAttackCoordinates =
+    controller.generateComputerAttack(playerBoard);
+
+  expect(computerAttackCoordinates).toHaveProperty("x");
+  expect(computerAttackCoordinates).toHaveProperty("y");
 });
 
 test("The controller correctly detects if the game is over", () => {

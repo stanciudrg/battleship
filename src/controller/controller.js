@@ -46,6 +46,10 @@ export default class Controller {
     this.#players[player].gameBoard.receiveAttack(coordinates);
   }
 
+  generateComputerAttack(enemyBoard) {
+    return Computer.generateAttackCoordinates(enemyBoard);
+  }
+
   isGameOver() {
     if (
       this.#players[1].gameBoard.isGameOver() ||

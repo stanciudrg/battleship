@@ -43,7 +43,7 @@ export default class Computer extends Player {
     const generateRandomX = () => {
       const availableXs = [];
 
-      gameBoard.board.forEach((x, index) => {
+      gameBoard.forEach((x, index) => {
         if (
           x.find((y) => {
             if (!y.isHit) return y;
@@ -66,7 +66,7 @@ export default class Computer extends Player {
     const generateRandomY = () => {
       const availableYs = [];
 
-      gameBoard.board[randomX].forEach((y, index) => {
+      gameBoard[randomX].forEach((y, index) => {
         if (!y.isHit) availableYs.push(index);
       });
 

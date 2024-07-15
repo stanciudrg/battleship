@@ -20,7 +20,7 @@ test("Computer class generates a valid random attack for an empty gameBoard", ()
   const enemyGameBoard = new GameBoard();
   enemyGameBoard.createBoard();
 
-  const attack = Computer.generateAttackCoordinates(enemyGameBoard);
+  const attack = Computer.generateAttackCoordinates(enemyGameBoard.board);
 
   expect(attack.x >= 0 || attack.y >= 0 || attack.x <= 9 || attack.y <= 9).toBe(
     true,
@@ -32,7 +32,7 @@ test("Computer class generates multiple valid random attacks for the same gameBo
   enemyGameBoard.createBoard();
 
   for (let i = 0; i < 99; i++) {
-    const attack = Computer.generateAttackCoordinates(enemyGameBoard);
+    const attack = Computer.generateAttackCoordinates(enemyGameBoard.board);
     enemyGameBoard.receiveAttack(attack);
   }
 
@@ -52,11 +52,11 @@ test("Computer class throws if trying to generate an attack for a a full gameBoa
   enemyGameBoard.createBoard();
 
   for (let i = 0; i < 100; i++) {
-    const attack = Computer.generateAttackCoordinates(enemyGameBoard);
+    const attack = Computer.generateAttackCoordinates(enemyGameBoard.board);
     enemyGameBoard.receiveAttack(attack);
   }
 
   expect(() => {
-    Computer.generateAttackCoordinates(enemyGameBoard);
+    Computer.generateAttackCoordinates(enemyGameBoard.board);
   }).toThrow();
 });
