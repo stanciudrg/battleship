@@ -217,3 +217,15 @@ test("GameBoard correctly resets its board", () => {
 
   expect(oldBoard).not.toEqual(newGameBoard);
 });
+
+test("GameBoard correctly deletes its current ships array", () => {
+  const gameBoard = new GameBoard();
+  gameBoard.createBoard();
+
+  const ship = new Ship(4);
+  gameBoard.placeShip(ship, { x: 0, y: 0, axis: "x", length: 4 });
+
+  gameBoard.deleteShips();
+
+  expect(gameBoard.ships).toStrictEqual([]);
+});

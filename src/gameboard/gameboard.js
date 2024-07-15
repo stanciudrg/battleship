@@ -55,6 +55,10 @@ export default class GameBoard {
     }
   }
 
+  deleteShips() {
+    this.#ships = [];
+  }
+
   receiveAttack(coordinates) {
     const { x, y } = coordinates;
 
