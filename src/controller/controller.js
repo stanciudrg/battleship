@@ -98,4 +98,8 @@ export default class Controller {
   resetBoard(player) {
     this.players[player].gameBoard.resetBoard();
   }
+
+  deleteShips(player) {
+    this.players[player].gameBoard.deleteShips();
+  }
 }

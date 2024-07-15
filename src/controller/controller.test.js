@@ -222,3 +222,15 @@ test("The controller correctly resets the board of the passed player", () => {
   expect(oldPlayerGameBoard).not.toEqual(newPlayerGameBoard);
   expect(oldComputerGameBoard).not.toEqual(newComputerGameBoard);
 });
+
+test("The controller correctly resets the 'ships' array of the passed player's GameBoard", () => {
+  const controller = new Controller();
+  controller.newGameVsComputer();
+  controller.placeShip(1, { x: 0, y: 0, axis: "x", length: 4 });
+
+  controller.deleteShips(1);
+  controller.deleteShips(2);
+
+  expect(controller.players[1].gameBoard.ships).toStrictEqual([]);
+  expect(controller.players[2].gameBoard.ships).toStrictEqual([]);
+});
