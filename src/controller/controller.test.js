@@ -204,3 +204,21 @@ test("The controller correctly starts a new game of player vs computer", () => {
     expect(ship).toBeInstanceOf(Ship);
   });
 });
+
+test("The controller correctly resets the board of the passed player", () => {
+  const controller = new Controller();
+  controller.newGameVsComputer();
+  controller.placeShip(1, { x: 0, y: 0, axis: "x", length: 4 });
+
+  const oldPlayerGameBoard = controller.players[1].gameBoard.board;
+  const oldComputerGameBoard = controller.players[2].gameBoard.board;
+
+  controller.resetBoard(1);
+  controller.resetBoard(2);
+
+  const newPlayerGameBoard = controller.players[1].gameBoard.board;
+  const newComputerGameBoard = controller.players[2].gameBoard.board;
+
+  expect(oldPlayerGameBoard).not.toEqual(newPlayerGameBoard);
+  expect(oldComputerGameBoard).not.toEqual(newComputerGameBoard);
+});

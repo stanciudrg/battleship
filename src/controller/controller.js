@@ -17,7 +17,7 @@ export default class Controller {
     return ship;
   }
 
-  createPlayers() {
+  createPlayerAndComputer() {
     this.#players[1] = new Player(this.createGameBoard());
     this.#players[2] = new Computer(this.createGameBoard());
   }
@@ -67,7 +67,7 @@ export default class Controller {
     return null;
   }
 
-  playRound(playerAttackCoordinates) {
+  playRoundVsComputer(playerAttackCoordinates) {
     if (this.isGameOver()) {
       throw new Error(
         "Trying to play a round when the game is already over. The game can only be played if both players have at least one ship that is not sunk",
@@ -88,5 +88,14 @@ export default class Controller {
       isGameOver: isGameOver,
       winner: winner,
     };
+  }
+
+  newGameVsComputer() {
+    this.createPlayerAndComputer();
+    this.placeComputerShips();
+  }
+
+  resetBoard(player) {
+    this.players[player].gameBoard.resetBoard();
   }
 }
