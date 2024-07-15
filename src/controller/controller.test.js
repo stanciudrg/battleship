@@ -256,3 +256,23 @@ test("The controller correctly restarts a game", () => {
   expect(controller.players[1].gameBoard.ships).toStrictEqual([]);
   expect(controller.players[2].gameBoard.ships).toStrictEqual([]);
 });
+
+test("The controller correctly restarts a game of player vs computer", () => {
+  const controller = new Controller();
+  controller.newGameVsComputer();
+  controller.placeShip(1, { x: 0, y: 0, axis: "x", length: 4 });
+
+  const oldPlayerGameBoard = controller.players[1].gameBoard.board;
+  const oldComputerGameBoard = controller.players[2].gameBoard.board;
+
+  controller.restartGameVsComputer();
+
+  const newPlayerGameBoard = controller.players[1].gameBoard.board;
+  const newComputerGameBoard = controller.players[2].gameBoard.board;
+
+  expect(oldPlayerGameBoard).not.toEqual(newPlayerGameBoard);
+  expect(oldComputerGameBoard).not.toEqual(newComputerGameBoard);
+
+  expect(controller.players[1].gameBoard.ships).toStrictEqual([]);
+  expect(controller.players[2].gameBoard.ships.length).toBe(5);
+});

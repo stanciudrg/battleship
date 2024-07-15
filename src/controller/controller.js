@@ -109,4 +109,9 @@ export default class Controller {
     this.deleteShips(1);
     this.deleteShips(2);
   }
+
+  restartGameVsComputer() {
+    this.restartGame();
+    this.players[2].placeShips();
+  }
 }
