@@ -22,6 +22,11 @@ export default class GameBoard {
     }
   }
 
+  resetBoard() {
+    this.#board = [];
+    this.createBoard();
+  }
+
   placeShip(ship, options) {
     if (this.#ships.length >= 5) {
       throw new RangeError(

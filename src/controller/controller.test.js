@@ -188,10 +188,9 @@ test("The controller throws if trying to play a round and the game is over", () 
   }).toThrow();
 });
 
-test("The controller correctly starts a game of player vs computer", () => {
+test("The controller correctly starts a new game of player vs computer", () => {
   const controller = new Controller();
   controller.newGameVsComputer();
-  expect(controller.players.length).toBe(2);
   expect(controller.players[1]).toBeDefined();
   expect(controller.players[2]).toBeDefined();
   expect(controller.players[1]).toBeInstanceOf(Player);

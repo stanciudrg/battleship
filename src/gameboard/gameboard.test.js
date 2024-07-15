@@ -200,3 +200,20 @@ test("GameBoard correctly determines if all ships have been sunk", () => {
 
   expect(gameBoard.isGameOver()).toBe(true);
 });
+
+test("GameBoard correctly resets its board", () => {
+  const gameBoard = new GameBoard();
+  gameBoard.createBoard();
+
+  const ship = new Ship(4);
+  gameBoard.placeShip(ship, { x: 0, y: 0, axis: "x", length: 4 });
+  gameBoard.receiveAttack({ x: 0, y: 0 });
+
+  const oldBoard = gameBoard.board;
+
+  gameBoard.resetBoard();
+
+  const newGameBoard = gameBoard.board;
+
+  expect(oldBoard).not.toEqual(newGameBoard);
+});
