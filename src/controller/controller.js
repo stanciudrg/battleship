@@ -74,5 +74,13 @@ export default class Controller {
     const playerGameBoard = this.#players[1].gameBoard.board;
     const computerAttack = this.generateComputerAttack(playerGameBoard);
     this.sendAttack(1, computerAttack);
+
+    const isGameOver = this.isGameOver();
+    const winner = this.getWinner();
+
+    return {
+      isGameOver: isGameOver,
+      winner: winner,
+    };
   }
 }
