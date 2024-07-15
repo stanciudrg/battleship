@@ -35,6 +35,18 @@ test("The controller sends the attack to the passed player at the passed coordin
   expect(controller.players[1].gameBoard.board[0][0].isHit).toBe(true);
 });
 
+test("The controller correctly manipulates the Computer instance into placing its ships", () => {
+  const controller = new Controller();
+  controller.createPlayers();
+  controller.placeComputerShips();
+
+  expect(controller.players[2].gameBoard.ships.length).toBe(5);
+
+  controller.players[2].gameBoard.ships.forEach((ship) => {
+    expect(ship).toBeInstanceOf(Ship);
+  });
+});
+
 test("The controller correctly detects if the game is over", () => {
   const controller = new Controller();
   controller.createPlayers();
