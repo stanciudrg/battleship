@@ -148,21 +148,41 @@ test("The controller returns the correct game status and winner after each round
   controller.placeShip(1, { x: 0, y: 0, axis: "x", length: 4 });
   controller.placeShip(2, { x: 0, y: 0, axis: "x", length: 4 });
 
-  const playerAttackCoordinates = {
-    x: 2,
-    y: 3,
-  };
+  const round = controller.playRound({ x: 2, y: 3 });
 
-  const round = controller.playRound(playerAttackCoordinates);
   expect(round.isGameOver).toBe(false);
   expect(round.winner).toBe(null);
 
   controller.playRound({ x: 0, y: 0 });
   controller.playRound({ x: 0, y: 1 });
   controller.playRound({ x: 0, y: 2 });
-
   const newRound = controller.playRound({ x: 0, y: 3 });
 
   expect(newRound.isGameOver).toBe(true);
   expect(newRound.winner).toBe(controller.players[1]);
+});
+
+test("The controller throws if trying to play a round and the game is over", () => {
+  // Mock the method on the prototype
+  Controller.prototype.generateComputerAttack = jest
+    .fn()
+    .mockReturnValueOnce({ x: 1, y: 5 })
+    .mockReturnValueOnce({ x: 1, y: 7 })
+    .mockReturnValueOnce({ x: 1, y: 6 })
+    .mockReturnValueOnce({ x: 1, y: 8 });
+
+  const controller = new Controller();
+
+  controller.createPlayers();
+  controller.placeShip(1, { x: 0, y: 0, axis: "x", length: 4 });
+  controller.placeShip(2, { x: 0, y: 0, axis: "x", length: 4 });
+
+  controller.playRound({ x: 0, y: 0 });
+  controller.playRound({ x: 0, y: 1 });
+  controller.playRound({ x: 0, y: 2 });
+  controller.playRound({ x: 0, y: 3 });
+
+  expect(() => {
+    controller.playRound({ x: 0, y: 4 });
+  }).toThrow();
 });

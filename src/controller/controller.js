@@ -68,6 +68,12 @@ export default class Controller {
   }
 
   playRound(playerAttackCoordinates) {
+    if (this.isGameOver()) {
+      throw new Error(
+        "Trying to play a round when the game is already over. The game can only be played if both players have at least one ship that is not sunk",
+      );
+    }
+
     const playerAttack = playerAttackCoordinates;
     this.sendAttack(2, playerAttack);
 
