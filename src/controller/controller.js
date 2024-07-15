@@ -66,4 +66,13 @@ export default class Controller {
     if (this.#players[2].gameBoard.isGameOver()) return this.#players[1];
     return null;
   }
+
+  playRound(playerAttackCoordinates) {
+    const playerAttack = playerAttackCoordinates;
+    this.sendAttack(2, playerAttack);
+
+    const playerGameBoard = this.#players[1].gameBoard.board;
+    const computerAttack = this.generateComputerAttack(playerGameBoard);
+    this.sendAttack(1, computerAttack);
+  }
 }
