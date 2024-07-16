@@ -6,8 +6,16 @@ test("Computer class randomly places ships on its gameBoard at valid coordinates
   const gameBoard = new GameBoard();
   gameBoard.createBoard();
 
+  const ships = [
+    new Ship(2),
+    new Ship(3),
+    new Ship(3),
+    new Ship(4),
+    new Ship(5),
+  ];
+
   const computer = new Computer(gameBoard);
-  computer.placeShips();
+  computer.placeShips(ships);
 
   expect(computer.gameBoard.ships.length).toBe(5);
 

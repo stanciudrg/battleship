@@ -39,7 +39,15 @@ export default class Controller {
       );
     }
 
-    this.#players[2].placeShips();
+    const ships = [
+      new Ship(2),
+      new Ship(3),
+      new Ship(3),
+      new Ship(4),
+      new Ship(5),
+    ];
+
+    this.#players[2].placeShips(ships);
   }
 
   sendAttack(player, coordinates) {
@@ -112,6 +120,15 @@ export default class Controller {
 
   restartGameVsComputer() {
     this.restartGame();
-    this.players[2].placeShips();
+
+    const ships = [
+      new Ship(2),
+      new Ship(3),
+      new Ship(3),
+      new Ship(4),
+      new Ship(5),
+    ];
+
+    this.players[2].placeShips(ships);
   }
 }

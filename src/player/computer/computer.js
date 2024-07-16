@@ -1,20 +1,11 @@
 import Player from "../player";
-import Ship from "../../ship/ship";
 
 export default class Computer extends Player {
   constructor(gameBoard) {
     super(gameBoard);
   }
 
-  placeShips() {
-    const ships = [
-      new Ship(2),
-      new Ship(3),
-      new Ship(3),
-      new Ship(4),
-      new Ship(5),
-    ];
-
+  placeShips(ships) {
     const generateCoordinates = () => {
       return {
         x: Math.floor(Math.random() * 10),
