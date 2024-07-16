@@ -125,4 +125,9 @@ export default class Controller {
     this.restartGame();
     this.placeComputerShips();
   }
+
+  resetScore() {
+    this.players[1].resetScore();
+    this.players[2].resetScore();
+  }
 }
