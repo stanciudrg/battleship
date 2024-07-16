@@ -12,6 +12,10 @@ export default class Controller {
     return board;
   }
 
+  getGameBoard(player) {
+    return this.#players[player].gameBoard.board;
+  }
+
   createShip(length) {
     const ship = new Ship(length);
     return ship;
@@ -24,6 +28,10 @@ export default class Controller {
 
   get players() {
     return this.#players;
+  }
+
+  getPlayerScore(player) {
+    return this.#players[player].score;
   }
 
   placeShip(player, options) {
