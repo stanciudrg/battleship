@@ -163,6 +163,14 @@ test("The controller returns the correct game status and winner after each round
   expect(newRound.winner).toBe(controller.players[1]);
 });
 
+test("The controller correctly increments the score of the specified player", () => {
+  const controller = new Controller();
+  controller.createPlayerAndComputer();
+  controller.increaseScore(1);
+
+  expect(controller.players[1].score).toBe(1);
+});
+
 test("The controller throws if trying to play a round and the game is over", () => {
   // Mock the method on the prototype
   Controller.prototype.generateComputerAttack = jest

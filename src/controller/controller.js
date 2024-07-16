@@ -27,8 +27,7 @@ export default class Controller {
   }
 
   placeShip(player, options) {
-    const { x, y, axis, length } = options;
-    const ship = this.createShip(length);
+    const ship = this.createShip(options.length);
     this.#players[player].gameBoard.placeShip(ship, options);
   }
 
@@ -73,6 +72,10 @@ export default class Controller {
     if (this.#players[1].gameBoard.isGameOver()) return this.#players[2];
     if (this.#players[2].gameBoard.isGameOver()) return this.#players[1];
     return null;
+  }
+
+  increaseScore(player) {
+    this.#players[player].increaseScore();
   }
 
   playRoundVsComputer(playerAttackCoordinates) {
@@ -120,15 +123,6 @@ export default class Controller {
 
   restartGameVsComputer() {
     this.restartGame();
-
-    const ships = [
-      new Ship(2),
-      new Ship(3),
-      new Ship(3),
-      new Ship(4),
-      new Ship(5),
-    ];
-
-    this.players[2].placeShips(ships);
+    this.placeComputerShips();
   }
 }
