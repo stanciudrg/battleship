@@ -123,6 +123,25 @@ test("The controller plays a round for the player correctly", () => {
   ).toBe(true);
 });
 
+test("The controller plays a round for the computer correctly", () => {
+  const controller = new Controller();
+  controller.createPlayerAndComputer();
+  controller.placeShip(1, { x: 0, y: 0, axis: "x", length: 4 });
+  controller.placeShip(2, { x: 0, y: 0, axis: "x", length: 4 });
+
+  controller.playComputerRound();
+
+  let computerHitPlayer;
+
+  controller.players[1].gameBoard.board.forEach((x) => {
+    x.forEach((y) => {
+      if (y.isHit) computerHitPlayer = true;
+    });
+  });
+
+  expect(computerHitPlayer).toBe(true);
+});
+
 test("The controller plays a round between the player and computer correctly", () => {
   const controller = new Controller();
   controller.createPlayerAndComputer();
