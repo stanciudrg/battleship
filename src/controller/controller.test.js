@@ -122,6 +122,27 @@ test("The controller plays a round for the computer correctly", () => {
   expect(computerHitPlayer).toBe(true);
 });
 
+test("The controller returns the correct game status and attack results", () => {
+  const controller = new Controller();
+
+  controller.createPlayerAndComputer();
+  controller.placeShip(1, { x: 0, y: 0, axis: "x", length: 4 });
+  controller.placeShip(2, { x: 0, y: 0, axis: "x", length: 4 });
+
+  const round = controller.playPlayerRound({ x: 2, y: 3 });
+
+  expect(round.isGameOver).toBe(false);
+  expect(round.hitShip).toBe(false);
+
+  controller.playPlayerRound({ x: 0, y: 0 });
+  controller.playPlayerRound({ x: 0, y: 1 });
+  controller.playPlayerRound({ x: 0, y: 2 });
+  const newRound = controller.playPlayerRound({ x: 0, y: 3 });
+
+  expect(newRound.isGameOver).toBe(true);
+  expect(newRound.hitShip).toBe(true);
+});
+
 test("The controller correctly increments the score of the specified player", () => {
   const controller = new Controller();
   controller.createPlayerAndComputer();
