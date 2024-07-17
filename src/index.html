@@ -14,21 +14,23 @@
   <body>
     <header>
       <h1>Battleship</h1>
-      <nav>
-        <ul>
-          <li>
-            <button class="restart-game_btn">Restart Game</button>
-            <button class="reset-game_btn">Reset Score</button>
-          </li>
-        </ul>
-      </nav>
+      <div class="game-manipulation_btns">
+        <button class="restart-game_btn">Restart Game</button>
+        <button class="reset-score_btn">Reset Score</button>
+      </div>
     </header>
     <main>
+      <div class="winner-modal">
+        <div class="winner-wrapper">
+          <h2 class="winner-message"></h2>
+          <button class="play-again-btn">Play Again</button>
+        </div>
+      </div>
       <div class="ship-placement_modal">
         <div class="ship-placement_wrapper">
           <h2 class="ship-placement_title">Place your ships</h2>
           <div class="ship-placement_actions">
-            <button class="reset-placements_btn">Reset</button>
+            <button class="reset-placement_btn">Reset</button>
             <button class="rotate-axis_btn">Axis: X</button>
           </div>
           <div class="ship-placement_area">
