@@ -86,6 +86,23 @@ export default class Controller {
     this.#players[player].increaseScore();
   }
 
+  playPlayerRound(coordinates) {
+    if (this.isGameOver()) {
+      throw new Error(
+        "Trying to play a round when the game is already over. The game can only be played if both players have at least one ship that is not sunk",
+      );
+    }
+
+    this.sendAttack(2, coordinates);
+    return {
+      hitShip: this.getGameBoard(2)[coordinates.x][coordinates.y].ship
+        ? true
+        : false,
+      isGameOver: this.isGameOver(),
+      winner: this.getWinner(),
+    };
+  }
+
   playRoundVsComputer(playerAttackCoordinates) {
     if (this.isGameOver()) {
       throw new Error(

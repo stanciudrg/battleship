@@ -103,6 +103,26 @@ test("The controller correctly determines the winner", () => {
   expect(controller.getWinner()).toEqual(controller.players[2]);
 });
 
+test("The controller plays a round for the player correctly", () => {
+  const controller = new Controller();
+  controller.createPlayerAndComputer();
+  controller.placeShip(1, { x: 0, y: 0, axis: "x", length: 4 });
+  controller.placeShip(2, { x: 0, y: 0, axis: "x", length: 4 });
+
+  const playerAttackCoordinates = {
+    x: 2,
+    y: 3,
+  };
+
+  controller.playPlayerRound(playerAttackCoordinates);
+
+  expect(
+    controller.players[2].gameBoard.board[playerAttackCoordinates.x][
+      playerAttackCoordinates.y
+    ].isHit,
+  ).toBe(true);
+});
+
 test("The controller plays a round between the player and computer correctly", () => {
   const controller = new Controller();
   controller.createPlayerAndComputer();
