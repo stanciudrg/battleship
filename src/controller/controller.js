@@ -99,7 +99,6 @@ export default class Controller {
         ? true
         : false,
       isGameOver: this.isGameOver(),
-      winner: this.getWinner(),
     };
   }
 
@@ -118,30 +117,6 @@ export default class Controller {
         ? true
         : false,
       isGameOver: this.isGameOver(),
-      winner: this.getWinner(),
-    };
-  }
-
-  playRoundVsComputer(playerAttackCoordinates) {
-    if (this.isGameOver()) {
-      throw new Error(
-        "Trying to play a round when the game is already over. The game can only be played if both players have at least one ship that is not sunk",
-      );
-    }
-
-    const playerAttack = playerAttackCoordinates;
-    this.sendAttack(2, playerAttack);
-
-    const playerGameBoard = this.#players[1].gameBoard.board;
-    const computerAttack = this.generateComputerAttack(playerGameBoard);
-    this.sendAttack(1, computerAttack);
-
-    const isGameOver = this.isGameOver();
-    const winner = this.getWinner();
-
-    return {
-      isGameOver: isGameOver,
-      winner: winner,
     };
   }
 
