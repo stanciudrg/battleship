@@ -55,21 +55,21 @@ test("GameBoard class throws if trying to place more than 5 ships", () => {
   gameBoard.placeShip(ship, { x: 0, y: 0, axis: "x", length: 4 });
 
   const ship2 = new Ship(4);
-  gameBoard.placeShip(ship2, { x: 1, y: 0, axis: "x", length: 4 });
+  gameBoard.placeShip(ship2, { x: 1, y: 5, axis: "x", length: 4 });
 
   const ship3 = new Ship(4);
-  gameBoard.placeShip(ship3, { x: 2, y: 0, axis: "x", length: 4 });
+  gameBoard.placeShip(ship3, { x: 3, y: 0, axis: "x", length: 4 });
 
   const ship4 = new Ship(4);
-  gameBoard.placeShip(ship4, { x: 3, y: 0, axis: "x", length: 4 });
+  gameBoard.placeShip(ship4, { x: 3, y: 5, axis: "x", length: 4 });
 
   const ship5 = new Ship(4);
-  gameBoard.placeShip(ship5, { x: 4, y: 0, axis: "x", length: 4 });
+  gameBoard.placeShip(ship5, { x: 5, y: 0, axis: "x", length: 4 });
 
   const ship6 = new Ship(4);
 
   expect(() => {
-    gameBoard.placeShip(ship6, { x: 5, y: 0, axis: "x", length: 4 });
+    gameBoard.placeShip(ship6, { x: 5, y: 5, axis: "x", length: 4 });
   }).toThrow();
 });
 
@@ -112,7 +112,7 @@ test("GameBoard correctly detects if coordinates overlap with existing ships", (
   }).not.toThrow();
 
   const ship2 = new Ship(4);
-  gameBoard.placeShip(ship2, { x: 1, y: 0, axis: "y", length: 4 });
+  gameBoard.placeShip(ship2, { x: 2, y: 0, axis: "y", length: 2 });
 
   expect(() => {
     gameBoard.placeShip(ship2, { x: 3, y: 0, axis: "y", length: 4 });

@@ -96,14 +96,42 @@ export default class GameBoard {
   #overlapsExistingShips(options) {
     const { x, y, axis, length } = options;
 
+    const findShip = (coordinates) => {
+      const x = this.#board[coordinates.x];
+      if (!x) return false;
+      const y = x[coordinates.y];
+      if (!y) return false;
+      return y.ship;
+    };
+
+    const overlapsOnX = () => {
+      const paddedY = y > 0 ? y - 1 : y;
+      const paddedLength =
+        y + length < this.#board[x].length ? length + 1 : length;
+
+      for (let i = 0; i < paddedLength; i++) {
+        if (findShip({ x: x - 1, y: paddedY + i })) return true;
+        if (findShip({ x: x, y: paddedY + i })) return true;
+        if (findShip({ x: x + 1, y: paddedY + i })) return true;
+      }
+    };
+
+    const overlapsOnY = () => {
+      const paddedX = x > 0 ? x - 1 : x;
+      const paddedLength =
+        x + length < this.#board.length ? length + 1 : length;
+
+      for (let i = 0; i < paddedLength; i++) {
+        if (findShip({ x: paddedX + i, y: y - 1 })) return true;
+        if (findShip({ x: paddedX + i, y: y })) return true;
+        if (findShip({ x: paddedX + i, y: y + 1 })) return true;
+      }
+    };
+
     if (axis === "x") {
-      for (let i = 0; i < length; i++) {
-        if (this.#board[x][y + i].ship) return true;
-      }
+      return overlapsOnX();
     } else if (axis === "y") {
-      for (let i = 0; i < length; i++) {
-        if (this.#board[x + i][y].ship) return true;
-      }
+      return overlapsOnY();
     }
 
     return false;
