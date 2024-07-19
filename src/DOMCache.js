@@ -17,12 +17,12 @@ const DOMCache = {
   },
   turnInfo: document.querySelector(".turn-info"),
   score: {
-    player: document.querySelector(".player-score"),
-    computer: document.querySelector(".computer-score"),
+    1: document.querySelector(".player-score"),
+    2: document.querySelector(".computer-score"),
   },
   gameBoards: {
-    player: document.querySelector(".player-gameboard"),
-    computer: document.querySelector(".computer-gameboard"),
+    1: document.querySelector(".player-gameboard"),
+    2: document.querySelector(".computer-gameboard"),
   },
 };
 
