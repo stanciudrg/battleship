@@ -30,6 +30,32 @@ test("The controller places the ship for the passed player at the passed coordin
   expect(controller.players[1].gameBoard.board[0][0].ship).toBeInstanceOf(Ship);
 });
 
+test("The controller correctly determines if the ship placement coordinates are valid", () => {
+  const controller = new Controller();
+  controller.createPlayerAndComputer();
+  controller.placeShip(1, { x: 0, y: 0, axis: "x", length: 4 });
+
+  expect(
+    controller.isValidPlacement(1, { x: 0, y: 0, axis: "x", length: 4 }),
+  ).toBe(false);
+
+  expect(
+    controller.isValidPlacement(1, { x: 0, y: 3, axis: "x", length: 4 }),
+  ).toBe(false);
+
+  expect(
+    controller.isValidPlacement(1, { x: 0, y: 8, axis: "x", length: 4 }),
+  ).toBe(false);
+
+  expect(
+    controller.isValidPlacement(1, { x: 8, y: 0, axis: "y", length: 4 }),
+  ).toBe(false);
+
+  expect(
+    controller.isValidPlacement(1, { x: 2, y: 0, axis: "x", length: 4 }),
+  ).toBe(true);
+});
+
 test("The controller sends the attack to the passed player at the passed coordinate", () => {
   const controller = new Controller();
   controller.createPlayerAndComputer();

@@ -27,6 +27,12 @@ export default class GameBoard {
     this.createBoard();
   }
 
+  isValidPlacement(options) {
+    if (this.#isOutOfBounds(options)) return false;
+    if (this.#overlapsExistingShips(options)) return false;
+    return true;
+  }
+
   placeShip(ship, options) {
     if (this.#ships.length >= 5) {
       throw new RangeError(
@@ -107,9 +113,9 @@ export default class GameBoard {
     const overlapsOnX = () => {
       const paddedY = y > 0 ? y - 1 : y;
       const paddedLength =
-        y + length < this.#board[x].length ? length + 1 : length;
+        y + length <= this.#board[x].length ? length + 1 : length;
 
-      for (let i = 0; i < paddedLength; i++) {
+      for (let i = 0; i <= paddedLength; i++) {
         if (findShip({ x: x - 1, y: paddedY + i })) return true;
         if (findShip({ x: x, y: paddedY + i })) return true;
         if (findShip({ x: x + 1, y: paddedY + i })) return true;
@@ -119,9 +125,9 @@ export default class GameBoard {
     const overlapsOnY = () => {
       const paddedX = x > 0 ? x - 1 : x;
       const paddedLength =
-        x + length < this.#board.length ? length + 1 : length;
+        x + length <= this.#board.length ? length + 1 : length;
 
-      for (let i = 0; i < paddedLength; i++) {
+      for (let i = 0; i <= paddedLength; i++) {
         if (findShip({ x: paddedX + i, y: y - 1 })) return true;
         if (findShip({ x: paddedX + i, y: y })) return true;
         if (findShip({ x: paddedX + i, y: y + 1 })) return true;

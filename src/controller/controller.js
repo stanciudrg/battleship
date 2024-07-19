@@ -39,6 +39,10 @@ export default class Controller {
     this.#players[player].gameBoard.placeShip(ship, options);
   }
 
+  isValidPlacement(player, coordinates) {
+    return this.#players[player].gameBoard.isValidPlacement(coordinates);
+  }
+
   placeComputerShips() {
     if (Object.getPrototypeOf(this.#players[2]) !== Computer.prototype) {
       throw new TypeError(
