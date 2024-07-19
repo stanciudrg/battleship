@@ -36,8 +36,8 @@ export default class Computer extends Player {
 
       gameBoard.forEach((x, index) => {
         if (
-          x.find((y) => {
-            if (!y.isHit) return y;
+          x.some((y) => {
+            return !y.isHit;
           })
         )
           availableXs.push(index);
