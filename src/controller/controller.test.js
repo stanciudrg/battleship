@@ -66,6 +66,25 @@ test("The controller removes the ship with the given id for the given player", (
   expect(controller.players[1].gameBoard.board[3][0].ship).toBeUndefined();
 });
 
+test("The controller correctly determines if the passed player's gameBoard has enough ships", () => {
+  const controller = new Controller();
+  controller.createPlayerAndComputer();
+
+  controller.placeShip(1, { x: 0, y: 0, axis: "x", length: 4 });
+
+  expect(controller.hasEnoughShips(1)).toBe(false);
+
+  controller.placeShip(1, { x: 2, y: 0, axis: "x", length: 4 });
+
+  controller.placeShip(1, { x: 4, y: 0, axis: "x", length: 4 });
+
+  controller.placeShip(1, { x: 6, y: 0, axis: "x", length: 4 });
+
+  controller.placeShip(1, { x: 8, y: 0, axis: "x", length: 4 });
+
+  expect(controller.hasEnoughShips(1)).toBe(true);
+});
+
 test("The controller correctly determines if the ship placement coordinates are valid", () => {
   const controller = new Controller();
   controller.createPlayerAndComputer();

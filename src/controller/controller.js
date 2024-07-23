@@ -39,6 +39,10 @@ export default class Controller {
     this.#players[player].gameBoard.placeShip(ship, options);
   }
 
+  hasEnoughShips(player) {
+    return this.#players[player].gameBoard.ships.length === 5;
+  }
+
   hasShip(player, id) {
     return this.#players[player].gameBoard.hasShip(id);
   }
