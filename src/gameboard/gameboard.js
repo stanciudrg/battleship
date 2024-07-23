@@ -61,6 +61,12 @@ export default class GameBoard {
     }
   }
 
+  hasShip(id) {
+    const ship = this.#ships.find((ship) => ship.id === id);
+    if (ship) return true;
+    return false;
+  }
+
   removeShip(id) {
     const ship = this.#ships.find((ship) => ship.id === id);
 

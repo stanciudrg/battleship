@@ -47,6 +47,17 @@ test("GameBoard class can place ships on both axes", () => {
   expect(gameBoard.board[3][0].ship).toEqual(ship);
 });
 
+test("GameBoard class correctly specifies if it contains the ship with the given id", () => {
+  const gameBoard = new GameBoard();
+  gameBoard.createBoard();
+
+  const ship = new Ship(4, "battleship");
+  gameBoard.placeShip(ship, { x: 0, y: 0, axis: "y", length: 4 });
+
+  expect(gameBoard.hasShip("battleship")).toBe(true);
+  expect(gameBoard.hasShip("destroyer")).toBe(false);
+});
+
 test("GameBoard class can remove the ship with the given id", () => {
   const gameBoard = new GameBoard();
   gameBoard.createBoard();
