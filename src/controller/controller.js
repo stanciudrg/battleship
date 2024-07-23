@@ -16,8 +16,8 @@ export default class Controller {
     return this.#players[player].gameBoard.board;
   }
 
-  createShip(length) {
-    const ship = new Ship(length);
+  createShip(length, id = null) {
+    const ship = new Ship(length, id);
     return ship;
   }
 
@@ -35,8 +35,12 @@ export default class Controller {
   }
 
   placeShip(player, options) {
-    const ship = this.createShip(options.length);
+    const ship = this.createShip(options.length, options.id);
     this.#players[player].gameBoard.placeShip(ship, options);
+  }
+
+  removeShip(player, id) {
+    this.#players[player].gameBoard.removeShip(id);
   }
 
   isValidPlacement(player, coordinates) {

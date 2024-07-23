@@ -30,6 +30,24 @@ test("The controller places the ship for the passed player at the passed coordin
   expect(controller.players[1].gameBoard.board[0][0].ship).toBeInstanceOf(Ship);
 });
 
+test("The controller removes the ship with the given id for the given player", () => {
+  const controller = new Controller();
+  controller.createPlayerAndComputer();
+  controller.placeShip(1, {
+    x: 0,
+    y: 0,
+    axis: "x",
+    length: 4,
+    id: "destroyer",
+  });
+  controller.removeShip(1, "destroyer");
+
+  expect(controller.players[1].gameBoard.board[0][0]["ship"]).toBeUndefined();
+  expect(controller.players[1].gameBoard.board[1][0]["ship"]).toBeUndefined();
+  expect(controller.players[1].gameBoard.board[2][0].ship).toBeUndefined();
+  expect(controller.players[1].gameBoard.board[3][0].ship).toBeUndefined();
+});
+
 test("The controller correctly determines if the ship placement coordinates are valid", () => {
   const controller = new Controller();
   controller.createPlayerAndComputer();
