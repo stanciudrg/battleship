@@ -63,6 +63,13 @@ export default class GameBoard {
 
   removeShip(id) {
     const ship = this.#ships.find((ship) => ship.id === id);
+
+    if (!ship) {
+      throw new RangeError(
+        "Attempting to remove a ship that does not exist. The passed id must match the id of an existing ship",
+      );
+    }
+
     this.#ships.splice(this.#ships.indexOf(ship), 1);
 
     this.#board.forEach((x) => {

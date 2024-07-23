@@ -62,6 +62,18 @@ test("GameBoard class can remove the ship with the given id", () => {
   expect(gameBoard.board[3][0].ship).toBeUndefined();
 });
 
+test("GameBoard class throws if trying to remove a ship that does not exist", () => {
+  const gameBoard = new GameBoard();
+  gameBoard.createBoard();
+
+  const ship = new Ship(4, "battleship");
+  gameBoard.placeShip(ship, { x: 0, y: 0, axis: "y", length: 4 });
+
+  expect(() => {
+    gameBoard.removeShip("destroyer");
+  }).toThrow();
+});
+
 test("GameBoard class throws if trying to place more than 5 ships", () => {
   const gameBoard = new GameBoard();
   gameBoard.createBoard();
