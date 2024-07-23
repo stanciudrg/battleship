@@ -39,6 +39,10 @@ export default class Controller {
     this.#players[player].gameBoard.placeShip(ship, options);
   }
 
+  hasShip(player, id) {
+    return this.#players[player].gameBoard.hasShip(id);
+  }
+
   removeShip(player, id) {
     this.#players[player].gameBoard.removeShip(id);
   }
