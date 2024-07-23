@@ -61,6 +61,17 @@ export default class GameBoard {
     }
   }
 
+  removeShip(id) {
+    const ship = this.#ships.find((ship) => ship.id === id);
+    this.#ships.splice(this.#ships.indexOf(ship), 1);
+
+    this.#board.forEach((x) => {
+      x.forEach((y) => {
+        if (y.ship && y.ship.id === id) delete y.ship;
+      });
+    });
+  }
+
   deleteShips() {
     this.#ships = [];
   }
