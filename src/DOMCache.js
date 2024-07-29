@@ -6,12 +6,13 @@ const DOMCache = {
   winner: {
     modal: document.querySelector(".winner-modal"),
     message: document.querySelector(".winner-message"),
-    playAgainBtn: document.querySelector(".play-again-btn"),
+    playAgainBtn: document.querySelector(".play-again_btn"),
   },
   shipPlacement: {
     modal: document.querySelector(".ship-placement_modal"),
-    resetPlacementBtn: document.querySelector(".reset-placements_btn"),
+    resetPlacementBtn: document.querySelector(".reset-placement_btn"),
     rotateAxisBtn: document.querySelector(".rotate-axis_btn"),
+    startGameBtn: document.querySelector(".start-game_btn"),
     ships: document.querySelector(".ship-placement_ships"),
     gameBoard: document.querySelector(".ship-placement_gameboard"),
   },

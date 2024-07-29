@@ -16,25 +16,26 @@
       <h1>Battleship</h1>
       <div class="game-manipulation_btns">
         <button class="restart-game_btn">Restart Game</button>
-        <button class="reset-score_btn">Reset Score</button>
+        <button class="reset-score_btn" disabled>Reset Score</button>
       </div>
     </header>
     <main>
       <div class="winner-modal">
         <div class="winner-wrapper">
           <h2 class="winner-message"></h2>
-          <button class="play-again-btn">Play Again</button>
+          <button class="play-again_btn">Play Again</button>
         </div>
       </div>
       <div class="ship-placement_modal">
         <div class="ship-placement_wrapper">
           <h2 class="ship-placement_title">Place your ships</h2>
           <div class="ship-placement_actions">
-            <button class="reset-placement_btn">Reset</button>
-            <button class="rotate-axis_btn">Axis: X</button>
+            <button class="reset-placement_btn" disabled="true">Reset</button>
+            <button class="rotate-axis_btn">Axis: <span>x</span></button>
+            <button class="start-game_btn" disabled="true">Start</button>
           </div>
           <div class="ship-placement_area">
-            <div class="ship-placement_ships"></div>
+            <div class="ship-placement_ships rotate-x" data-axis="x"></div>
             <div class="ship-placement_gameboard"></div>
           </div>
         </div>
@@ -42,12 +43,18 @@
       <div class="game-container">
         <div class="turn-info"></div>
         <div class="game-sides">
-          <div class="player-side">
-            <div class="player-score">0</div>
+          <div class="player-side disabled">
+            <div class="player-info">
+              <div class="player-name">Player</div>
+              <div class="player-score"></div>
+            </div>
             <div class="player-gameboard"></div>
           </div>
-          <div class="computer-side">
-            <div class="computer-score">0</div>
+          <div class="computer-side enabled">
+            <div class="computer-info">
+              <div class="computer-score"></div>
+              <div class="computer-name">Computer</div>
+            </div>
             <div class="computer-gameboard"></div>
           </div>
         </div>
