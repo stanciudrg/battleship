@@ -106,6 +106,18 @@ export default class GameBoard {
 
     this.#board[x][y].isHit = true;
     if (this.#board[x][y].ship) this.#board[x][y].ship.hit();
+
+    this.updateLastHit({ x, y });
+  }
+
+  updateLastHit(coordinates) {
+    this.#board.forEach((x) => {
+      x.forEach((y) => {
+        if (y.lastHit) delete y.lastHit;
+      });
+    });
+
+    this.#board[coordinates.x][coordinates.y].lastHit = true;
   }
 
   isGameOver() {
