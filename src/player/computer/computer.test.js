@@ -20,7 +20,7 @@ test("Computer class randomly places ships on its gameBoard at valid coordinates
   expect(computer.gameBoard.ships.length).toBe(5);
 
   computer.gameBoard.ships.forEach((ship) => {
-    expect(ship).toBeInstanceOf(Ship);
+    expect(ship.shipInstance).toBeInstanceOf(Ship);
   });
 });
 

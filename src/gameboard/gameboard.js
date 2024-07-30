@@ -50,7 +50,7 @@ export default class GameBoard {
 
     const { x, y, axis, length } = options;
 
-    this.#ships.push(ship);
+    this.#ships.push({ shipInstance: ship, shipCoordinates: options });
 
     for (let i = 0; i < length; i++) {
       if (axis === "x") {
@@ -62,13 +62,13 @@ export default class GameBoard {
   }
 
   hasShip(id) {
-    const ship = this.#ships.find((ship) => ship.id === id);
+    const ship = this.#ships.find((ship) => ship.shipInstance.id === id);
     if (ship) return true;
     return false;
   }
 
   removeShip(id) {
-    const ship = this.#ships.find((ship) => ship.id === id);
+    const ship = this.#ships.find((ship) => ship.shipInstance.id === id);
 
     if (!ship) {
       throw new RangeError(
@@ -105,9 +105,75 @@ export default class GameBoard {
     }
 
     this.#board[x][y].isHit = true;
-    if (this.#board[x][y].ship) this.#board[x][y].ship.hit();
 
+    if (this.#board[x][y].ship) {
+      this.#board[x][y].ship.hit();
+
+      if (this.#board[x][y].ship.isSunk()) {
+        const shipCoordinates = this.#ships.find((ship) => {
+          return ship.shipInstance.id === this.#board[x][y].ship.id;
+        }).shipCoordinates;
+
+        this.hitAdjacentSquares(shipCoordinates);
+      }
+    }
     this.updateLastHit({ x, y });
+  }
+
+  hitAdjacentSquares(coordinates) {
+    const { x, y, axis, length } = coordinates;
+
+    const findSquare = (coordinates) => {
+      const x = this.#board[coordinates.x];
+      if (!x) return false;
+      const y = x[coordinates.y];
+      if (!y) return false;
+      return y;
+    };
+
+    const hit = (location) => {
+      if (location.isHit) return;
+      location.isHit = true;
+      location.isCollateralDamage = true;
+    };
+
+    const hitOnX = () => {
+      const paddedY = y - 1;
+      const paddedLength =
+        y + length <= this.#board[x].length ? length + 1 : length;
+
+      for (let i = 0; i <= paddedLength; i += 1) {
+        const previousX = findSquare({ x: x - 1, y: paddedY + i });
+        const currentX = findSquare({ x: x, y: paddedY + i });
+        const nextX = findSquare({ x: x + 1, y: paddedY + i });
+
+        if (previousX) hit(previousX);
+        if (currentX) hit(currentX);
+        if (nextX) hit(nextX);
+      }
+    };
+
+    const hitOnY = () => {
+      const paddedX = x - 1;
+      const paddedLength =
+        x + length <= this.#board.length ? length + 1 : length;
+
+      for (let i = 0; i <= paddedLength; i += 1) {
+        const previousY = findSquare({ x: paddedX + i, y: y - 1 });
+        const currentY = findSquare({ x: paddedX + i, y: y });
+        const nextY = findSquare({ x: paddedX + i, y: y + 1 });
+
+        if (previousY) hit(previousY);
+        if (currentY) hit(currentY);
+        if (nextY) hit(nextY);
+      }
+    };
+
+    if (axis === "x") {
+      return hitOnX();
+    }
+
+    return hitOnY();
   }
 
   updateLastHit(coordinates) {
@@ -122,7 +188,7 @@ export default class GameBoard {
 
   isGameOver() {
     const livingShip = this.#ships.find((ship) => {
-      if (ship.isSunk() === false) return ship;
+      if (ship.shipInstance.isSunk() === false) return ship;
     });
 
     if (livingShip) return false;

@@ -185,6 +185,36 @@ test("GameBoard throws if trying to hit a coordinate that is out of bounds", () 
   }).toThrow();
 });
 
+test("GameBoard automatically hits all adjacent cells of a ship that has been sunk", () => {
+  const gameBoard = new GameBoard();
+  gameBoard.createBoard();
+
+  const ship = new Ship(4);
+  gameBoard.placeShip(ship, { x: 1, y: 1, axis: "x", length: 4 });
+
+  gameBoard.receiveAttack({ x: 1, y: 1 });
+  gameBoard.receiveAttack({ x: 1, y: 2 });
+  gameBoard.receiveAttack({ x: 1, y: 3 });
+  gameBoard.receiveAttack({ x: 1, y: 4 });
+
+  expect(gameBoard.board[0][0].isHit).toBe(true);
+  expect(gameBoard.board[0][1].isHit).toBe(true);
+  expect(gameBoard.board[0][2].isHit).toBe(true);
+  expect(gameBoard.board[0][3].isHit).toBe(true);
+  expect(gameBoard.board[0][4].isHit).toBe(true);
+  expect(gameBoard.board[0][5].isHit).toBe(true);
+
+  expect(gameBoard.board[1][0].isHit).toBe(true);
+  expect(gameBoard.board[1][5].isHit).toBe(true);
+
+  expect(gameBoard.board[2][0].isHit).toBe(true);
+  expect(gameBoard.board[2][1].isHit).toBe(true);
+  expect(gameBoard.board[2][2].isHit).toBe(true);
+  expect(gameBoard.board[2][3].isHit).toBe(true);
+  expect(gameBoard.board[2][4].isHit).toBe(true);
+  expect(gameBoard.board[2][5].isHit).toBe(true);
+});
+
 test("GameBoard returns a warning if trying to hit a coordinate multiple times", () => {
   const warnSpy = jest.spyOn(global.console, "warn");
 

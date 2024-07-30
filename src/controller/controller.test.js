@@ -127,7 +127,7 @@ test("The controller correctly manipulates the Computer instance into placing it
   expect(controller.players[2].gameBoard.ships.length).toBe(5);
 
   controller.players[2].gameBoard.ships.forEach((ship) => {
-    expect(ship).toBeInstanceOf(Ship);
+    expect(ship.shipInstance).toBeInstanceOf(Ship);
   });
 });
 
@@ -274,7 +274,7 @@ test("The controller correctly starts a new game of player vs computer", () => {
   expect(controller.players[2].gameBoard).toBeInstanceOf(GameBoard);
   expect(controller.players[2].gameBoard.ships.length).toBe(5);
   controller.players[2].gameBoard.ships.forEach((ship) => {
-    expect(ship).toBeInstanceOf(Ship);
+    expect(ship.shipInstance).toBeInstanceOf(Ship);
   });
 });
 
