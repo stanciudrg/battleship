@@ -131,8 +131,8 @@ export default class GameBoard {
 
   #isOutOfBounds(options) {
     const { x, y, axis, length } = options;
-    if (axis === "x" && y + length > 9) return true;
-    if (axis === "y" && x + length > 9) return true;
+    if (axis === "x" && y + length > 10) return true;
+    if (axis === "y" && x + length > 10) return true;
   }
 
   #overlapsExistingShips(options) {
@@ -147,7 +147,7 @@ export default class GameBoard {
     };
 
     const overlapsOnX = () => {
-      const paddedY = y > 0 ? y - 1 : y;
+      const paddedY = y - 1;
       const paddedLength =
         y + length <= this.#board[x].length ? length + 1 : length;
 
@@ -159,7 +159,7 @@ export default class GameBoard {
     };
 
     const overlapsOnY = () => {
-      const paddedX = x > 0 ? x - 1 : x;
+      const paddedX = x - 1;
       const paddedLength =
         x + length <= this.#board.length ? length + 1 : length;
 
