@@ -1,3 +1,4 @@
+import "./DOMapp.css";
 import Controller from "../controller/controller";
 import DOMCache from "./DOMCache";
 import { setDependencies, open } from "./shipPlacementModal/shipPlacementModal";

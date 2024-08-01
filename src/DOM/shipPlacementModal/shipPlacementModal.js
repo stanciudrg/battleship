@@ -1,3 +1,5 @@
+import "./shipPlacementModal.css";
+
 const dependencies = {};
 const current = {
   shipsOnCoordinate: [],
