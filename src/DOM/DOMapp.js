@@ -1,13 +1,22 @@
-import "./DOMapp.css";
 import Controller from "../controller/controller";
 import DOMCache from "./DOMCache";
+import { setDependencies, open } from "./shipPlacementModal/shipPlacementModal";
 
 const gameController = new Controller();
+const shipPlacementModal = { setDependencies, open };
 
 export default function DOMinit() {
   gameController.newGameVsComputer();
 
-  updateBoardsDOM();
+  shipPlacementModal.setDependencies({
+    DOMCache: DOMCache.shipPlacement,
+    updateBoardsDOM,
+    updateBoardDOM,
+    createBoardDOM,
+    gameController,
+  });
+
+  shipPlacementModal.open();
 
   DOMCache.gameManipulation.restartGameBtn.addEventListener(
     "click",
@@ -22,7 +31,10 @@ export default function DOMinit() {
 function restartGame() {
   gameController.restartGameVsComputer();
 
-  updateBoardsDOM();
+  updateBoardDOM(DOMCache.gameBoards[1], document.createDocumentFragment());
+  updateBoardDOM(DOMCache.gameBoards[2], document.createDocumentFragment());
+
+  shipPlacementModal.open();
 
   enablePlayerActions();
 }
