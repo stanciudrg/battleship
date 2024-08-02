@@ -6,7 +6,7 @@ import Computer from "../player/computer/computer";
 export default class Controller {
   #players = {};
 
-  createGameBoard() {
+  static createGameBoard() {
     const board = new GameBoard();
     board.createBoard();
     return board;
@@ -16,14 +16,14 @@ export default class Controller {
     return this.#players[player].gameBoard.board;
   }
 
-  createShip(length, id = null) {
+  static createShip(length, id = null) {
     const ship = new Ship(length, id);
     return ship;
   }
 
   createPlayerAndComputer() {
-    this.#players[1] = new Player(this.createGameBoard());
-    this.#players[2] = new Computer(this.createGameBoard());
+    this.#players[1] = new Player(Controller.createGameBoard());
+    this.#players[2] = new Computer(Controller.createGameBoard());
   }
 
   get players() {
@@ -35,7 +35,7 @@ export default class Controller {
   }
 
   placeShip(player, options) {
-    const ship = this.createShip(options.length, options.id);
+    const ship = Controller.createShip(options.length, options.id);
     this.#players[player].gameBoard.placeShip(ship, options);
   }
 
@@ -120,9 +120,7 @@ export default class Controller {
     this.sendAttack(1, computerAttack);
 
     return {
-      hitShip: this.getGameBoard(1)[computerAttack.x][computerAttack.y].ship
-        ? true
-        : false,
+      hitShip: !!this.getGameBoard(1)[computerAttack.x][computerAttack.y].ship,
       isGameOver: this.isGameOver(),
     };
   }

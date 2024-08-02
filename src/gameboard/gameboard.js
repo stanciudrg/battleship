@@ -1,5 +1,6 @@
 export default class GameBoard {
   #board = [];
+
   #ships = [];
 
   get board() {
@@ -11,9 +12,9 @@ export default class GameBoard {
   }
 
   createBoard() {
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 10; i += 1) {
       const x = [];
-      for (let j = 0; j < 10; j++) {
+      for (let j = 0; j < 10; j += 1) {
         x.push({
           isHit: false,
         });
@@ -28,7 +29,7 @@ export default class GameBoard {
   }
 
   isValidPlacement(options) {
-    if (this.#isOutOfBounds(options)) return false;
+    if (GameBoard.#isOutOfBounds(options)) return false;
     if (this.#overlapsExistingShips(options)) return false;
     return true;
   }
@@ -40,7 +41,7 @@ export default class GameBoard {
       );
     }
 
-    if (this.#isOutOfBounds(options)) {
+    if (GameBoard.#isOutOfBounds(options)) {
       throw new RangeError("Ship coordinates are out of bounds");
     }
 
@@ -52,7 +53,7 @@ export default class GameBoard {
 
     this.#ships.push({ shipInstance: ship, shipCoordinates: options });
 
-    for (let i = 0; i < length; i++) {
+    for (let i = 0; i < length; i += 1) {
       if (axis === "x") {
         this.#board[x][y + i].ship = ship;
       } else if (axis === "y") {
@@ -62,13 +63,13 @@ export default class GameBoard {
   }
 
   hasShip(id) {
-    const ship = this.#ships.find((ship) => ship.shipInstance.id === id);
+    const ship = this.#ships.find((_) => _.shipInstance.id === id);
     if (ship) return true;
     return false;
   }
 
   removeShip(id) {
-    const ship = this.#ships.find((ship) => ship.shipInstance.id === id);
+    const ship = this.#ships.find((_) => _.shipInstance.id === id);
 
     if (!ship) {
       throw new RangeError(
@@ -112,9 +113,9 @@ export default class GameBoard {
       this.hitAdjacentDiagonalSquares(x, y);
 
       if (this.#board[x][y].ship.isSunk()) {
-        const shipCoordinates = this.#ships.find((ship) => {
-          return ship.shipInstance.id === this.#board[x][y].ship.id;
-        }).shipCoordinates;
+        const { shipCoordinates } = this.#ships.find(
+          (ship) => ship.shipInstance.id === this.#board[x][y].ship.id,
+        );
 
         this.hitAdjacentSquares(shipCoordinates);
       }
@@ -122,7 +123,7 @@ export default class GameBoard {
     this.updateLastHit({ x, y });
 
     return {
-      hitShip: this.board[coordinates.x][coordinates.y].ship ? true : false,
+      hitShip: !!this.board[coordinates.x][coordinates.y].ship,
     };
   }
 
@@ -142,8 +143,8 @@ export default class GameBoard {
     });
   }
 
-  hitAdjacentSquares(coordinates) {
-    const { x, y, axis, length } = coordinates;
+  hitAdjacentSquares(options) {
+    const { x, y, axis, length } = options;
 
     const findSquare = (coordinates) => {
       const x = this.#board[coordinates.x];
@@ -166,7 +167,7 @@ export default class GameBoard {
 
       for (let i = 0; i <= paddedLength; i += 1) {
         const previousX = findSquare({ x: x - 1, y: paddedY + i });
-        const currentX = findSquare({ x: x, y: paddedY + i });
+        const currentX = findSquare({ x, y: paddedY + i });
         const nextX = findSquare({ x: x + 1, y: paddedY + i });
 
         if (previousX) hit(previousX);
@@ -182,7 +183,7 @@ export default class GameBoard {
 
       for (let i = 0; i <= paddedLength; i += 1) {
         const previousY = findSquare({ x: paddedX + i, y: y - 1 });
-        const currentY = findSquare({ x: paddedX + i, y: y });
+        const currentY = findSquare({ x: paddedX + i, y });
         const nextY = findSquare({ x: paddedX + i, y: y + 1 });
 
         if (previousY) hit(previousY);
@@ -209,18 +210,19 @@ export default class GameBoard {
   }
 
   isGameOver() {
-    const livingShip = this.#ships.find((ship) => {
-      if (ship.shipInstance.isSunk() === false) return ship;
-    });
+    const livingShip = this.#ships.find(
+      (ship) => ship.shipInstance.isSunk() === false,
+    );
 
     if (livingShip) return false;
     return true;
   }
 
-  #isOutOfBounds(options) {
+  static #isOutOfBounds(options) {
     const { x, y, axis, length } = options;
     if (axis === "x" && y + length > 10) return true;
     if (axis === "y" && x + length > 10) return true;
+    return false;
   }
 
   #overlapsExistingShips(options) {
@@ -239,11 +241,13 @@ export default class GameBoard {
       const paddedLength =
         y + length <= this.#board[x].length ? length + 1 : length;
 
-      for (let i = 0; i <= paddedLength; i++) {
+      for (let i = 0; i <= paddedLength; i += 1) {
         if (findShip({ x: x - 1, y: paddedY + i })) return true;
-        if (findShip({ x: x, y: paddedY + i })) return true;
+        if (findShip({ x, y: paddedY + i })) return true;
         if (findShip({ x: x + 1, y: paddedY + i })) return true;
       }
+
+      return false;
     };
 
     const overlapsOnY = () => {
@@ -251,19 +255,19 @@ export default class GameBoard {
       const paddedLength =
         x + length <= this.#board.length ? length + 1 : length;
 
-      for (let i = 0; i <= paddedLength; i++) {
+      for (let i = 0; i <= paddedLength; i += 1) {
         if (findShip({ x: paddedX + i, y: y - 1 })) return true;
-        if (findShip({ x: paddedX + i, y: y })) return true;
+        if (findShip({ x: paddedX + i, y })) return true;
         if (findShip({ x: paddedX + i, y: y + 1 })) return true;
       }
+
+      return false;
     };
 
     if (axis === "x") {
       return overlapsOnX();
-    } else if (axis === "y") {
-      return overlapsOnY();
     }
 
-    return false;
+    return overlapsOnY();
   }
 }

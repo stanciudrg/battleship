@@ -8,13 +8,11 @@ export default class Computer extends Player {
   #focusingShip;
 
   placeShips(ships) {
-    const generateCoordinates = () => {
-      return {
-        x: Math.floor(Math.random() * 10),
-        y: Math.floor(Math.random() * 10),
-        axis: Math.floor(Math.random() * 10) < 4 ? "x" : "y",
-      };
-    };
+    const generateCoordinates = () => ({
+      x: Math.floor(Math.random() * 10),
+      y: Math.floor(Math.random() * 10),
+      axis: Math.floor(Math.random() * 10) < 4 ? "x" : "y",
+    });
 
     const randomlyPlaceShip = (ship) => {
       try {
@@ -36,12 +34,7 @@ export default class Computer extends Player {
     const availableXs = [];
 
     gameBoard.forEach((x, index) => {
-      if (
-        x.some((y) => {
-          return !y.isHit;
-        })
-      )
-        availableXs.push(index);
+      if (x.some((y) => !y.isHit)) availableXs.push(index);
     });
 
     if (availableXs.length === 0) {

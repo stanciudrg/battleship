@@ -1,6 +1,7 @@
 export default class Ship {
   #id;
   #length;
+
   #hits = 0;
 
   constructor(length, id) {

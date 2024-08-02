@@ -5,13 +5,11 @@ import Player from "../player/player";
 import Computer from "../player/computer/computer";
 
 test("The controller creates a valid gameBoard", () => {
-  const controller = new Controller();
-  expect(controller.createGameBoard()).toBeInstanceOf(GameBoard);
+  expect(Controller.createGameBoard()).toBeInstanceOf(GameBoard);
 });
 
 test("The controller creates a valid ship", () => {
-  const controller = new Controller();
-  expect(controller.createShip(4)).toBeInstanceOf(Ship);
+  expect(Controller.createShip(4)).toBeInstanceOf(Ship);
 });
 
 test("The controller creates the necessary players for the game", () => {
@@ -131,7 +129,7 @@ test("The controller correctly manipulates the Computer instance into placing it
   });
 });
 
-test("The controller correctly manipulates the Computer instance into generating a random valid attack", () => {
+test("The controller correctly manipulates the Computer instance into generating a valid attack", () => {
   const controller = new Controller();
   controller.createPlayerAndComputer();
 

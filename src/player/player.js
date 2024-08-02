@@ -1,5 +1,6 @@
 export default class Player {
   #gameBoard;
+
   #score = 0;
 
   constructor(gameBoard) {
