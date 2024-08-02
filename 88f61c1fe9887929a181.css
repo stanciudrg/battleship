@@ -1,7 +1,10 @@
+/*!**********************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./src/DOM/DOMapp.css ***!
+  \**********************************************************************/
 /* Font style declarations */
 @font-face {
   font-family: "Urbanist";
-  src: url(".././fonts/Urbanist-Regular.woff");
+  src: url(fonts/a6ee275138c2c861fd11.woff);
   font-weight: 400;
   font-style: normal;
   unicode-range: U+000-5FF;
@@ -10,7 +13,7 @@
 
 @font-face {
   font-family: "Urbanist";
-  src: url(".././fonts/Urbanist-Bold.woff");
+  src: url(fonts/4db034b7de3d28210801.woff);
   font-weight: 700;
   font-style: normal;
   unicode-range: U+000-5FF;
@@ -433,3 +436,355 @@ footer {
     margin-top: 2rem;
   }
 }
+
+/*!*****************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./src/DOM/shipPlacementModal/shipPlacementModal.css ***!
+  \*****************************************************************************************************/
+.ship-placement_modal {
+  display: none;
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background-color: var(--color2);
+}
+
+.ship-placement_wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ship-placement_title {
+  margin-top: 2rem;
+  font-size: 2rem;
+}
+
+.ship-placement_actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.ship-placement_actions button {
+  width: 80px;
+  font-size: 1.1rem;
+  background-color: transparent;
+  color: var(--color1);
+  border-bottom: 1px solid var(--color1);
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  padding: 0.5rem 0;
+}
+
+.ship-placement_area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+.ship-placement_ships {
+  max-width: 388px;
+  height: 200px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.ship-placement_ships.rotate-x {
+  align-content: center;
+}
+
+.ship-placement_ships.rotate-y {
+  align-items: end;
+}
+
+.placement-ship_wrapper {
+  background-image: linear-gradient(
+    to bottom right,
+    rgba(0, 0, 0, 0.1),
+    rgba(0, 0, 0, 0)
+  );
+  border: 1px solid var(--color1);
+  border-radius: 0.2rem;
+}
+
+.placement-ship_wrapper.holds-destroyer.rotate-x,
+#destroyer.rotate-x {
+  width: 80px;
+  height: 40px;
+}
+
+.placement-ship_wrapper.holds-submarine.rotate-x,
+.placement-ship_wrapper.holds-cruiser.rotate-x,
+#submarine.rotate-x,
+#cruiser.rotate-x {
+  width: 120px;
+  height: 40px;
+}
+
+.placement-ship_wrapper.holds-battleship.rotate-x,
+#battleship.rotate-x {
+  width: 160px;
+  height: 40px;
+}
+
+.placement-ship_wrapper.holds-carrier.rotate-x,
+#carrier.rotate-x {
+  width: 200px;
+  height: 40px;
+}
+
+.placement-ship_wrapper.holds-destroyer.rotate-y,
+#destroyer.rotate-y {
+  width: 40px;
+  height: 80px;
+}
+
+.placement-ship_wrapper.holds-submarine.rotate-y,
+.placement-ship_wrapper.holds-cruiser.rotate-y,
+#submarine.rotate-y,
+#cruiser.rotate-y {
+  width: 40px;
+  height: 120px;
+}
+
+.placement-ship_wrapper.holds-battleship.rotate-y,
+#battleship.rotate-y {
+  width: 40px;
+  height: 160px;
+}
+
+.placement-ship_wrapper.holds-carrier.rotate-y,
+#carrier.rotate-y {
+  width: 40px;
+  height: 200px;
+}
+
+.placement-ship {
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.8rem;
+  background-image: linear-gradient(to bottom right, #a4a4d7, #b6b6e9);
+  color: var(--color1);
+  outline: 1px solid var(--color1);
+  border-radius: 0.2rem;
+  touch-action: none;
+  user-select: none;
+  cursor: grab;
+}
+
+.placement-ship.being-dragged {
+  cursor: grabbing;
+}
+
+.placement-ship.rotate-y {
+  flex-direction: column;
+  align-self: center;
+  writing-mode: vertical-lr;
+}
+
+.ship-placement_gameboard {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--color4);
+  border-radius: 0.2rem;
+  margin-top: 2rem;
+}
+
+.ship-placement_gameboard .y-axis {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border-right: 1px solid var(--color4);
+  border-bottom: 1px solid var(--color4);
+}
+
+.ship-placement_gameboard .y-axis.hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.ship-placement_gameboard .y-axis:last-of-type {
+  border-right: 0;
+}
+
+@media (max-width: 650px) {
+  .ship-placement_title {
+    font-size: 1.75rem;
+    margin-top: 1.75rem;
+  }
+
+  .ship-placement_area {
+    margin-top: 1rem;
+  }
+
+  .ship-placement_ships {
+    max-width: 325px;
+    height: 160px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .placement-ship {
+    font-size: 10px;
+  }
+
+  .placement-ship_wrapper.holds-destroyer.rotate-x,
+  #destroyer.rotate-x {
+    width: 64px;
+    height: 32px;
+  }
+
+  .placement-ship_wrapper.holds-submarine.rotate-x,
+  .placement-ship_wrapper.holds-cruiser.rotate-x,
+  #submarine.rotate-x,
+  #cruiser.rotate-x {
+    width: 96px;
+    height: 32px;
+  }
+
+  .placement-ship_wrapper.holds-battleship.rotate-x,
+  #battleship.rotate-x {
+    width: 128px;
+    height: 32px;
+  }
+
+  .placement-ship_wrapper.holds-carrier.rotate-x,
+  #carrier.rotate-x {
+    width: 160px;
+    height: 32px;
+  }
+
+  .placement-ship_wrapper.holds-destroyer.rotate-y,
+  #destroyer.rotate-y {
+    width: 32px;
+    height: 64px;
+  }
+
+  .placement-ship_wrapper.holds-submarine.rotate-y,
+  .placement-ship_wrapper.holds-cruiser.rotate-y,
+  #submarine.rotate-y,
+  #cruiser.rotate-y {
+    width: 32px;
+    height: 96px;
+  }
+
+  .placement-ship_wrapper.holds-battleship.rotate-y,
+  #battleship.rotate-y {
+    width: 32px;
+    height: 128px;
+  }
+
+  .placement-ship_wrapper.holds-carrier.rotate-y,
+  #carrier.rotate-y {
+    width: 32px;
+    height: 160px;
+  }
+
+  .ship-placement_gameboard {
+    margin-top: 1rem;
+  }
+
+  .ship-placement_gameboard .y-axis {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+@media (max-width: 350px) {
+  .ship-placement_title {
+    font-size: 1.5rem;
+    margin-top: 1rem;
+  }
+
+  .ship-placement_actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+
+  .ship-placement_actions button {
+    width: 60px;
+    font-size: 1rem;
+    padding: 0.5rem 0;
+  }
+
+  .ship-placement_ships {
+    max-width: 325px;
+    height: 150px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .placement-ship {
+    font-size: 0.5rem;
+  }
+
+  .placement-ship_wrapper.holds-destroyer.rotate-x,
+  #destroyer.rotate-x {
+    width: 50px;
+    height: 25px;
+  }
+
+  .placement-ship_wrapper.holds-submarine.rotate-x,
+  .placement-ship_wrapper.holds-cruiser.rotate-x,
+  #submarine.rotate-x,
+  #cruiser.rotate-x {
+    width: 75px;
+    height: 25px;
+  }
+
+  .placement-ship_wrapper.holds-battleship.rotate-x,
+  #battleship.rotate-x {
+    width: 100px;
+    height: 25px;
+  }
+
+  .placement-ship_wrapper.holds-carrier.rotate-x,
+  #carrier.rotate-x {
+    width: 125px;
+    height: 25px;
+  }
+
+  .placement-ship_wrapper.holds-destroyer.rotate-y,
+  #destroyer.rotate-y {
+    width: 25px;
+    height: 50px;
+  }
+
+  .placement-ship_wrapper.holds-submarine.rotate-y,
+  .placement-ship_wrapper.holds-cruiser.rotate-y,
+  #submarine.rotate-y,
+  #cruiser.rotate-y {
+    width: 25px;
+    height: 75px;
+  }
+
+  .placement-ship_wrapper.holds-battleship.rotate-y,
+  #battleship.rotate-y {
+    width: 25px;
+    height: 100px;
+  }
+
+  .placement-ship_wrapper.holds-carrier.rotate-y,
+  #carrier.rotate-y {
+    width: 25px;
+    height: 125px;
+  }
+
+  .ship-placement_gameboard .y-axis {
+    width: 25px;
+    height: 25px;
+  }
+}
+
