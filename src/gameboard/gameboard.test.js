@@ -185,6 +185,21 @@ test("GameBoard throws if trying to hit a coordinate that is out of bounds", () 
   }).toThrow();
 });
 
+test("GameBoard automatically hits the adjacent diagonal cells of a ship that has been hit", () => {
+  const gameBoard = new GameBoard();
+  gameBoard.createBoard();
+
+  const ship = new Ship(4);
+  gameBoard.placeShip(ship, { x: 1, y: 1, axis: "x", length: 4 });
+
+  gameBoard.receiveAttack({ x: 1, y: 1 });
+
+  expect(gameBoard.board[0][0].isHit).toBe(true);
+  expect(gameBoard.board[2][0].isHit).toBe(true);
+  expect(gameBoard.board[0][2].isHit).toBe(true);
+  expect(gameBoard.board[2][2].isHit).toBe(true);
+});
+
 test("GameBoard automatically hits all adjacent cells of a ship that has been sunk", () => {
   const gameBoard = new GameBoard();
   gameBoard.createBoard();

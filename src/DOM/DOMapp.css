@@ -1,7 +1,7 @@
 /* Font style declarations */
 @font-face {
   font-family: "Urbanist";
-  src: url(".././fonts/Urbanist-Regular.woff");
+  src: url("../../fonts/Urbanist-Regular.woff");
   font-weight: 400;
   font-style: normal;
   unicode-range: U+000-5FF;
@@ -10,7 +10,7 @@
 
 @font-face {
   font-family: "Urbanist";
-  src: url(".././fonts/Urbanist-Bold.woff");
+  src: url("../../fonts/Urbanist-Bold.woff");
   font-weight: 700;
   font-style: normal;
   unicode-range: U+000-5FF;
@@ -35,7 +35,7 @@
     sans-serif;
   box-sizing: border-box;
   /* Disables the colored highlight that is supposed to appear over a link while it's being 
-      tapped but also appears over button elements on mobile devices */
+    tapped but also appears over button elements on mobile devices */
   -webkit-tap-highlight-color: transparent;
   margin: 0;
   padding: 0;
@@ -308,6 +308,10 @@ header h1 {
 
 .y-axis.sunk-ship {
   background-color: rgba(255, 0, 0, 0.2);
+}
+
+.y-axis.sunk-ship.last-hit {
+  background-color: rgba(255, 255, 0, 0.2);
 }
 
 footer {

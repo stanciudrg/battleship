@@ -109,6 +109,8 @@ export default class GameBoard {
     if (this.#board[x][y].ship) {
       this.#board[x][y].ship.hit();
 
+      this.hitAdjacentDiagonalSquares(x, y);
+
       if (this.#board[x][y].ship.isSunk()) {
         const shipCoordinates = this.#ships.find((ship) => {
           return ship.shipInstance.id === this.#board[x][y].ship.id;
@@ -118,6 +120,22 @@ export default class GameBoard {
       }
     }
     this.updateLastHit({ x, y });
+  }
+
+  hitAdjacentDiagonalSquares(x, y) {
+    const directions = [
+      { x: x - 1, y: y - 1 },
+      { x: x - 1, y: y + 1 },
+      { x: x + 1, y: y - 1 },
+      { x: x + 1, y: y + 1 },
+    ];
+
+    directions.forEach((direction) => {
+      if (this.#board[direction.x] && this.#board[direction.x][direction.y]) {
+        this.#board[direction.x][direction.y].isHit = true;
+        this.#board[direction.x][direction.y].isCollateralDamage = true;
+      }
+    });
   }
 
   hitAdjacentSquares(coordinates) {
