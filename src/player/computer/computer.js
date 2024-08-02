@@ -3,9 +3,9 @@ import Player from "../player";
 export default class Computer extends Player {
   #lastMove;
 
-  constructor(gameBoard) {
-    super(gameBoard);
-  }
+  #moves = [];
+
+  #focusingShip;
 
   placeShips(ships) {
     const generateCoordinates = () => {
@@ -30,13 +30,6 @@ export default class Computer extends Player {
     ships.forEach((ship) => {
       randomlyPlaceShip(ship);
     });
-  }
-
-  static generateRandomAttack(gameBoard) {
-    const randomX = Computer.#generateRandomX(gameBoard);
-    const randomY = Computer.#generateRandomY(gameBoard, randomX);
-
-    return { x: randomX, y: randomY };
   }
 
   static #generateRandomX(gameBoard) {
@@ -68,6 +61,13 @@ export default class Computer extends Player {
     });
 
     return availableYs[Math.floor(Math.random() * availableYs.length)];
+  }
+
+  static generateRandomAttack(gameBoard) {
+    const randomX = Computer.#generateRandomX(gameBoard);
+    const randomY = Computer.#generateRandomY(gameBoard, randomX);
+
+    return { x: randomX, y: randomY };
   }
 
   static #generateRandomAdjacentX(gameBoard, x, y) {
@@ -115,30 +115,72 @@ export default class Computer extends Player {
   }
 
   #generatePreciseAttack(gameBoard) {
+    const firstHit = this.#moves.find((move) => move.firstHit === true);
+    const lastMove = this.#moves[this.#moves.length - 1];
+
+    if (gameBoard[lastMove.x][lastMove.y].ship) {
+      lastMove.hitShip = true;
+    }
+
+    const hits = this.#moves.filter((move) => move.hitShip === true);
+
     const adjacentCoordinateGenerators = [
       Computer.#generateRandomAdjacentX,
       Computer.#generateRandomAdjacentY,
     ];
 
-    let randomAdjacentCoords;
+    if (hits.length < 2) {
+      let randomAdjacentCoords;
 
-    while (!randomAdjacentCoords) {
-      randomAdjacentCoords = adjacentCoordinateGenerators[
-        Math.random() < 0.5 ? 0 : 1
-      ](gameBoard, this.#lastMove.x, this.#lastMove.y);
-    }
+      while (!randomAdjacentCoords) {
+        randomAdjacentCoords = adjacentCoordinateGenerators[
+          Math.random() < 0.5 ? 0 : 1
+        ](gameBoard, firstHit.x, firstHit.y);
+      }
 
-    if (randomAdjacentCoords) {
+      this.#moves.push(randomAdjacentCoords);
       return randomAdjacentCoords;
     }
 
-    return Computer.generateRandomAttack(gameBoard);
+    const generatePreciseAdjacentMove = (callback) => {
+      const initialDirection = callback(
+        gameBoard,
+        hits[hits.length - 1].x,
+        hits[hits.length - 1].y,
+      );
+
+      if (initialDirection) {
+        this.#moves.push(initialDirection);
+        return initialDirection;
+      }
+
+      const reversedDirection = callback(gameBoard, hits[0].x, hits[0].y);
+      this.#moves.push(reversedDirection);
+      return reversedDirection;
+    };
+
+    if (hits[0].x === hits[1].x) {
+      return generatePreciseAdjacentMove(Computer.#generateRandomAdjacentY);
+    }
+
+    return generatePreciseAdjacentMove(Computer.#generateRandomAdjacentX);
   }
 
   generateAttackCoordinates(gameBoard) {
-    if (this.#lastMove && gameBoard[this.#lastMove.x][this.#lastMove.y].ship) {
-      this.#lastMove = this.#generatePreciseAttack(gameBoard);
+    if (this.#focusingShip && this.#focusingShip.isSunk()) {
+      this.#focusingShip = false;
+      this.#moves = [];
+
+      this.#lastMove = Computer.generateRandomAttack(gameBoard);
       return this.#lastMove;
+    }
+
+    if (this.#focusingShip) return this.#generatePreciseAttack(gameBoard);
+
+    if (this.#lastMove && gameBoard[this.#lastMove.x][this.#lastMove.y].ship) {
+      this.#focusingShip = gameBoard[this.#lastMove.x][this.#lastMove.y].ship;
+      this.#moves.push({ ...this.#lastMove, firstHit: true });
+      return this.#generatePreciseAttack(gameBoard);
     }
 
     this.#lastMove = Computer.generateRandomAttack(gameBoard);

@@ -47,8 +47,8 @@ async function handleRound(e) {
   disablePlayerActions();
 
   const playerMove = makePlayerMove(
-    e.target.parentElement.dataset.index,
-    e.target.dataset.index,
+    Number(e.target.parentElement.dataset.index),
+    Number(e.target.dataset.index),
   );
 
   if (playerMove.isGameOver) {
@@ -95,14 +95,15 @@ function makeComputerMove() {
       createBoardDOM(1, gameController.getGameBoard(1)),
     );
 
+    if (computerMove.isGameOver) {
+      return computerMove;
+    }
+
     if (computerMove.hitShip) return makeComputerMove();
 
     return new Promise((resolve) => {
       setTimeout(resolve, 1000);
-    }).then(() => {
-      if (computerMove.isGameOver) return computerMove;
-      return computerMove;
-    });
+    }).then(() => computerMove);
   });
 }
 

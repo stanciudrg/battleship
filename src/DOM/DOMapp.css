@@ -1,7 +1,7 @@
 /* Font style declarations */
 @font-face {
   font-family: "Urbanist";
-  src: url("../../fonts/Urbanist-Regular.woff");
+  src: url(".././fonts/Urbanist-Regular.woff");
   font-weight: 400;
   font-style: normal;
   unicode-range: U+000-5FF;
@@ -10,7 +10,7 @@
 
 @font-face {
   font-family: "Urbanist";
-  src: url("../../fonts/Urbanist-Bold.woff");
+  src: url(".././fonts/Urbanist-Bold.woff");
   font-weight: 700;
   font-style: normal;
   unicode-range: U+000-5FF;
