@@ -28,7 +28,7 @@ test("Computer class generates a valid random attack for an empty gameBoard", ()
   const enemyGameBoard = new GameBoard();
   enemyGameBoard.createBoard();
 
-  const attack = Computer.generateAttackCoordinates(enemyGameBoard.board);
+  const attack = Computer.generateRandomAttack(enemyGameBoard.board);
 
   expect(attack.x >= 0 || attack.y >= 0 || attack.x <= 9 || attack.y <= 9).toBe(
     true,
@@ -40,7 +40,7 @@ test("Computer class generates multiple valid random attacks for the same gameBo
   enemyGameBoard.createBoard();
 
   for (let i = 0; i < 99; i++) {
-    const attack = Computer.generateAttackCoordinates(enemyGameBoard.board);
+    const attack = Computer.generateRandomAttack(enemyGameBoard.board);
     enemyGameBoard.receiveAttack(attack);
   }
 
@@ -55,16 +55,51 @@ test("Computer class generates multiple valid random attacks for the same gameBo
   expect(noOfHits).toBe(99);
 });
 
+test("Computer class tries to guess the next valid attack after hitting a ship", () => {
+  const enemyGameBoard = new GameBoard();
+  enemyGameBoard.createBoard();
+
+  const ship = new Ship(4);
+  enemyGameBoard.placeShip(ship, { x: 1, y: 1, axis: "y", length: 4 });
+
+  const computerGameBoard = new GameBoard();
+  computerGameBoard.createBoard();
+  const computer = new Computer(computerGameBoard);
+
+  let attackCoordinates = Computer.generateRandomAttack(enemyGameBoard.board);
+  let attackInfo = enemyGameBoard.receiveAttack(attackCoordinates);
+
+  while (!attackInfo.hitShip) {
+    attackCoordinates = computer.generateAttackCoordinates(
+      enemyGameBoard.board,
+    );
+    attackInfo = enemyGameBoard.receiveAttack(attackCoordinates);
+  }
+
+  const guessAttack = computer.generateAttackCoordinates(enemyGameBoard.board);
+
+  expect(
+    (guessAttack.x === attackCoordinates.x &&
+      guessAttack.y === attackCoordinates.y + 1) ||
+      (guessAttack.x === attackCoordinates.x &&
+        guessAttack.y === attackCoordinates.y - 1) ||
+      (guessAttack.y === attackCoordinates.y &&
+        guessAttack.x === attackCoordinates.x + 1) ||
+      (guessAttack.y === attackCoordinates.y &&
+        guessAttack.x === attackCoordinates.x - 1),
+  ).toBe(true);
+});
+
 test("Computer class throws if trying to generate an attack for a a full gameBoard", () => {
   const enemyGameBoard = new GameBoard();
   enemyGameBoard.createBoard();
 
   for (let i = 0; i < 100; i++) {
-    const attack = Computer.generateAttackCoordinates(enemyGameBoard.board);
+    const attack = Computer.generateRandomAttack(enemyGameBoard.board);
     enemyGameBoard.receiveAttack(attack);
   }
 
   expect(() => {
-    Computer.generateAttackCoordinates(enemyGameBoard.board);
+    Computer.generateRandomAttack(enemyGameBoard.board);
   }).toThrow();
 });

@@ -120,6 +120,10 @@ export default class GameBoard {
       }
     }
     this.updateLastHit({ x, y });
+
+    return {
+      hitShip: this.board[coordinates.x][coordinates.y].ship ? true : false,
+    };
   }
 
   hitAdjacentDiagonalSquares(x, y) {

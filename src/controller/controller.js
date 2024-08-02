@@ -74,11 +74,11 @@ export default class Controller {
   }
 
   sendAttack(player, coordinates) {
-    this.#players[player].gameBoard.receiveAttack(coordinates);
+    return this.#players[player].gameBoard.receiveAttack(coordinates);
   }
 
   generateComputerAttack(enemyBoard) {
-    return Computer.generateAttackCoordinates(enemyBoard);
+    return this.#players[2].generateAttackCoordinates(enemyBoard);
   }
 
   isGameOver() {
@@ -103,11 +103,8 @@ export default class Controller {
       );
     }
 
-    this.sendAttack(2, coordinates);
     return {
-      hitShip: this.getGameBoard(2)[coordinates.x][coordinates.y].ship
-        ? true
-        : false,
+      ...this.sendAttack(2, coordinates),
       isGameOver: this.isGameOver(),
     };
   }
